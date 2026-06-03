@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const API_URL = 'https://script.google.com/macros/s/AKfycbwhQcaPBWvmixag8msRQwihg5-2hkl231KCq_EnQb2PW1orHSJi7R_i67QywaCoAeFl5A/exec';
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const useGoogleAppsScript = () => {
   const [data, setData] = useState({
