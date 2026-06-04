@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Tilt from 'react-parallax-tilt';
-import { 
-  ArrowRight, MapPin, BookOpen, Users, Briefcase, Globe, 
-  Atom, Zap, Eye, Star 
+import {
+  ArrowRight, MapPin, BookOpen, Users, Briefcase, Globe,
+  Atom, Zap, Eye, Star
 } from 'lucide-react';
 
 const researchAreas = [
@@ -92,7 +92,7 @@ const Home = () => {
               </div>
               <div className="pi-body">
                 <h3>Dr. Amit Shukla</h3>
-                <p className="pi-title text-gradient">Assistant Professor</p>
+                <p className="pi-title text-gradient">Associate Professor</p>
                 <p className="pi-dept">Dept. of Astronomy, Astrophysics &amp; Space Engineering · IIT Indore</p>
                 <p>
                   Dr. Shukla's research focuses on high-energy astrophysics with an emphasis on understanding
