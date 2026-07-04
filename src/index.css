@@ -39,15 +39,15 @@
   --space-xl:  4rem;
   --space-2xl: 6rem;
 
-  /* Type scale - INCREASED */
-  --text-xs:   1.0rem;
-  --text-sm:   1.15rem;
-  --text-base: 1.35rem;
-  --text-lg:   1.6rem;
-  --text-xl:   2.0rem;
-  --text-2xl:  2.8rem;
-  --text-3xl:  4.0rem;
-  --text-4xl:  5.2rem;
+  /* Type scale */
+  --text-xs:   0.85rem;
+  --text-sm:   0.95rem;
+  --text-base: 1.1rem;
+  --text-lg:   1.35rem;
+  --text-xl:   1.7rem;
+  --text-2xl:  2.3rem;
+  --text-3xl:  3.2rem;
+  --text-4xl:  4.2rem;
 
   /* Radius */
   --radius-sm:  6px;
