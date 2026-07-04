@@ -47,10 +47,17 @@ const Home = () => {
             relativistic jets, supermassive black holes, and extreme high-energy astrophysical phenomena.
           </p>
           <div className="hero-cta">
-            <Link to="/research" className="btn hero-btn-primary">
+            <a 
+              href="#research" 
+              className="btn hero-btn-primary"
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('research')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
               <span>Our Research</span>
               <ArrowRight size={18} className="btn-arrow" />
-            </Link>
+            </a>
             <Link to="/people" className="btn hero-btn-secondary">
               Meet the Team
             </Link>
@@ -110,7 +117,7 @@ const Home = () => {
       </section>
 
       {/* ── Research Focus Areas ── */}
-      <section className="research-section">
+      <section id="research" className="research-section">
         <div className="container">
           <div className="section-header text-center">
             <span className="section-eyebrow">What We Study</span>
