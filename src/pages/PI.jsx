@@ -662,7 +662,21 @@ const PI = () => {
             font-size: 1.4rem;
           }
           .timeline-card {
-            padding: 2.5rem;
+            padding: 2rem;
+          }
+          .timeline-item {
+            flex-direction: column;
+            gap: 1rem;
+            padding-bottom: 2rem;
+          }
+          .timeline-item::before {
+            display: none;
+          }
+          .timeline-dot {
+            display: none;
+          }
+          .timeline-content {
+            padding-top: 0;
           }
           .interests-grid {
             grid-template-columns: 1fr;

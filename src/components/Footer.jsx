@@ -257,8 +257,11 @@ const Footer = () => {
           text-shadow: 0 0 12px rgba(96, 165, 250, 0.4);
         }
 
+        @media (max-width: 1024px) {
+          .footer-top { grid-template-columns: repeat(2, 1fr); gap: 3rem; }
+        }
         @media (max-width: 768px) {
-          .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+          .footer-top { grid-template-columns: 1fr; gap: 2.5rem; }
           .footer-bottom { flex-direction: column; text-align: center; }
         }
       `}</style>
