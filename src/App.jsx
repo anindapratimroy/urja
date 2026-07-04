@@ -9,6 +9,7 @@ import Collaborations from './pages/Collaborations';
 import PI from './pages/PI';
 import Gallery from './pages/Gallery';
 import Preloader from './components/Preloader';
+import ScrollToTop from './components/ScrollToTop';
 function App() {
   const [showPreloader, setShowPreloader] = useState(() => {
     // Only show preloader if it hasn't been shown in this session
@@ -26,6 +27,7 @@ function App() {
 
   return (
     <Router>
+      <ScrollToTop />
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
