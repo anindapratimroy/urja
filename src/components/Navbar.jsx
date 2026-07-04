@@ -181,7 +181,7 @@ const Navbar = () => {
 
         .navbar-links {
           display: flex;
-          gap: 1.5rem; /* More balanced gap */
+          gap: 0.75rem;
           list-style: none;
           align-items: center;
         }
@@ -191,9 +191,9 @@ const Navbar = () => {
           align-items: center;
           gap: 0.5rem;
           color: var(--text-secondary);
-          font-size: var(--text-sm);
+          font-size: 0.95rem;
           font-weight: 500;
-          padding: 0.6rem 1.25rem;
+          padding: 0.5rem 0.85rem;
           border-radius: 100px;
           position: relative;
           transition: all 0.25s ease;
@@ -215,7 +215,7 @@ const Navbar = () => {
           box-shadow: 0 4px 15px rgba(59, 130, 246, 0.15), inset 0 0 10px rgba(59, 130, 246, 0.05);
         }
 
-        @media (max-width: 1100px) {
+        @media (max-width: 1200px) {
           .mobile-toggle {
             display: block;
           }
