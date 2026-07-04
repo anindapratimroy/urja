@@ -129,17 +129,13 @@ const Preloader = ({ onComplete }) => {
           gap: '1.5rem',
         }}
       >
-        {/* Logos with pulse glow */}
-        <div className="urja-preloader__logos" style={{ display: 'flex', gap: '3rem', alignItems: 'center' }}>
-          <img src={iitiLogo} alt="IIT Indore" style={{ height: '120px', width: 'auto', filter: 'drop-shadow(0 0 12px rgba(255,255,255,0.8))' }} />
+        {/* Logos with smooth floating pulse */}
+        <div className="urja-preloader__logos" style={{ display: 'flex', gap: '3.5rem', alignItems: 'center' }}>
+          <img src={iitiLogo} alt="IIT Indore" style={{ height: '125px', width: 'auto' }} />
           <img 
             src={urjaLogo} 
             alt="URJA Lab" 
-            style={{ 
-              height: '130px', 
-              width: 'auto', 
-              filter: 'drop-shadow(0 0 25px rgba(255, 255, 255, 0.5))'
-            }} 
+            style={{ height: '135px', width: 'auto' }} 
           />
         </div>
 
@@ -147,9 +143,9 @@ const Preloader = ({ onComplete }) => {
         <h1
           style={{
             fontFamily: "'Space Grotesk', system-ui, sans-serif",
-            fontSize: 'clamp(1.6rem, 4vw, 2.4rem)',
+            fontSize: 'clamp(2rem, 5vw, 3rem)',
             fontWeight: 700,
-            letterSpacing: '0.12em',
+            letterSpacing: '0.15em',
             margin: 0,
             background: 'linear-gradient(135deg, #60A5FA 0%, #A78BFA 100%)',
             WebkitBackgroundClip: 'text',
@@ -164,9 +160,9 @@ const Preloader = ({ onComplete }) => {
         <p
           style={{
             fontFamily: "'Inter', system-ui, sans-serif",
-            fontSize: '0.85rem',
-            color: '#64748B',
-            letterSpacing: '0.18em',
+            fontSize: '1rem',
+            color: '#94A3B8',
+            letterSpacing: '0.22em',
             textTransform: 'uppercase',
             margin: 0,
           }}
@@ -223,11 +219,11 @@ const Preloader = ({ onComplete }) => {
         }
 
         .urja-preloader__logos {
-          animation: urjaLogoPulse 2.5s ease-in-out infinite;
+          animation: urjaLogoPulse 3s ease-in-out infinite;
         }
         @keyframes urjaLogoPulse {
-          0%, 100% { filter: drop-shadow(0 0 8px rgba(59,130,246,0.2)); }
-          50%      { filter: drop-shadow(0 0 24px rgba(59,130,246,0.45)); }
+          0%, 100% { transform: translateY(0) scale(1); }
+          50%      { transform: translateY(-8px) scale(1.02); }
         }
       `}</style>
     </div>
