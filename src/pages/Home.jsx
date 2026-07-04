@@ -83,9 +83,20 @@ const Home = () => {
                   His work involves multi-wavelength observational campaigns and theoretical modelling
                   of blazar variability, emission mechanisms, and jet formation.
                 </p>
-                <div className="pi-location flex items-center gap-2" style={{ color: 'var(--text-muted)', fontSize: 'var(--text-xs)', marginBottom: '1.5rem' }}>
-                  <MapPin size={16} color="var(--accent-blue-light)" />
-                  POD 1E 402, IIT Indore, Simrol, Khandwa Road, Indore — 453552
+                <div className="pi-meta-row">
+                  <span className="pi-meta-item">
+                    <MapPin size={15} style={{ flexShrink: 0 }} />
+                    <a 
+                      href="https://www.google.com/maps/search/?api=1&query=Department+of+Astronomy,+Astrophysics+%26+Space+Engineering,+IIT+Indore"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ color: 'inherit', textDecoration: 'none' }}
+                      onMouseEnter={(e) => e.target.style.color = 'var(--accent-cyan)'}
+                      onMouseLeave={(e) => e.target.style.color = 'inherit'}
+                    >
+                      POD 1E 402, IIT Indore, Simrol, Khandwa Road, Indore — 453552
+                    </a>
+                  </span>
                 </div>
                 <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
                   <Link to="/pi" className="btn">Full Profile</Link>

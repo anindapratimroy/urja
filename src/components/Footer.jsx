@@ -17,10 +17,15 @@ const Footer = () => {
             </p>
             <div className="footer-address" style={{ marginBottom: '1.25rem' }}>
               <MapPin size={14} color="var(--accent-blue-light)" style={{ flexShrink: 0, marginTop: '2px' }} />
-              <span>
+              <a 
+                href="https://www.google.com/maps/search/?api=1&query=Department+of+Astronomy,+Astrophysics+%26+Space+Engineering,+IIT+Indore"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-address-link"
+              >
                 POD 1E 402, Dept. of Astronomy, Astrophysics &amp; Space Engineering,
                 IIT Indore, Simrol, Khandwa Road, Indore — 453552
-              </span>
+              </a>
             </div>
           </div>
 
@@ -145,6 +150,14 @@ const Footer = () => {
           font-size: 0.88rem;
           color: var(--text-muted);
           line-height: 1.6;
+        }
+        .footer-address-link {
+          color: inherit;
+          text-decoration: none;
+          transition: color 0.25s ease;
+        }
+        .footer-address-link:hover {
+          color: var(--accent-blue-light);
         }
 
         .footer-map {
