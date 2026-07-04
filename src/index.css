@@ -40,14 +40,14 @@
   --space-2xl: 6rem;
 
   /* Type scale - INCREASED */
-  --text-xs:   0.9rem;
-  --text-sm:   1.05rem;
-  --text-base: 1.2rem;
-  --text-lg:   1.4rem;
-  --text-xl:   1.75rem;
-  --text-2xl:  2.5rem;
-  --text-3xl:  3.5rem;
-  --text-4xl:  4.5rem;
+  --text-xs:   1.0rem;
+  --text-sm:   1.15rem;
+  --text-base: 1.35rem;
+  --text-lg:   1.6rem;
+  --text-xl:   2.0rem;
+  --text-2xl:  2.8rem;
+  --text-3xl:  4.0rem;
+  --text-4xl:  5.2rem;
 
   /* Radius */
   --radius-sm:  6px;
@@ -65,7 +65,7 @@
 
 html {
   scroll-behavior: smooth;
-  font-size: 18px; /* Increased base font size */
+  font-size: 22px; /* Increased base font size */
   -webkit-text-size-adjust: 100%;
 }
 
@@ -121,7 +121,7 @@ a:hover { color: var(--text-primary); }
 /* ─── Layout Utilities ──────────────────────── */
 .container {
   width: 100%;
-  max-width: 1160px;
+  max-width: 1480px;
   margin: 0 auto;
   padding: 0 var(--space-md);
 }

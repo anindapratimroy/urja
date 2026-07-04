@@ -3,14 +3,8 @@ import { useGoogleAppsScript } from '../hooks/useGoogleAppsScript';
 import { Loader2, Globe, ExternalLink, Building2 } from 'lucide-react';
 
 const Collaborations = () => {
-  const { data, loading, error } = useGoogleAppsScript();
+  const { data, error } = useGoogleAppsScript();
 
-  if (loading) return (
-    <div className="loading-screen">
-      <Loader2 size={40} className="spinner" />
-      <p>Loading collaborations...</p>
-    </div>
-  );
 
   if (error) return (
     <div className="loading-screen">

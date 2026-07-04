@@ -93,9 +93,9 @@ const ParticleBackground = () => {
 
     const STAR_COUNT = 260;
     const NEBULA_COUNT = 5;
-    const ATTRACT_RADIUS = 180;
-    const ATTRACT_STRENGTH = 0.08;
-    const MOUSE_GLOW_RADIUS = 200;
+    const ATTRACT_RADIUS = 300;
+    const ATTRACT_STRENGTH = 0.15;
+    const MOUSE_GLOW_RADIUS = 300;
     const LINE_DISTANCE = 100;
     const LINE_OPACITY = 0.055;
     const FRICTION = 0.96;
@@ -137,8 +137,31 @@ const ParticleBackground = () => {
       mouseRef.current.x = -9999;
       mouseRef.current.y = -9999;
     };
+    const handleMouseClick = (e) => {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      // Scatter stars near the mouse
+      const stars = starsRef.current;
+      for (let i = 0; i < stars.length; i++) {
+        const star = stars[i];
+        const dx = star.x - e.clientX;
+        const dy = star.y - e.clientY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 400) {
+          const force = (400 - dist) / 10;
+          star.vx += (dx / dist) * force;
+          star.vy += (dy / dist) * force;
+        }
+      }
+      // Spawn 1-3 shooting stars on click
+      const count = Math.floor(Math.random() * 3) + 1;
+      for(let i=0; i<count; i++) {
+         shootingStarsRef.current.push(createShootingStar(w, h));
+      }
+    };
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseleave', handleMouseLeave);
+    window.addEventListener('click', handleMouseClick);
 
     const animate = () => {
       const width = window.innerWidth;
@@ -285,6 +308,27 @@ const ParticleBackground = () => {
         }
       }
 
+      // ── Interactive Mouse Constellation Lines ──
+      if (mouse.x > 0 && mouse.y > 0) {
+        let mouseLines = 0;
+        for (let i = 0; i < stars.length && mouseLines < 8; i++) {
+          const mdx = stars[i]._rx - mouse.x;
+          const mdy = stars[i]._ry - mouse.y;
+          const mDistSq = mdx * mdx + mdy * mdy;
+          const connectDist = LINE_DISTANCE * 2.2;
+          if (mDistSq < connectDist * connectDist) {
+            const d = Math.sqrt(mDistSq);
+            const lineAlpha = (1 - d / connectDist) * (LINE_OPACITY * 4) * stars[i]._opacity;
+            ctx.strokeStyle = `rgba(139, 92, 246, ${lineAlpha.toFixed(4)})`;
+            ctx.beginPath();
+            ctx.moveTo(mouse.x, mouse.y);
+            ctx.lineTo(stars[i]._rx, stars[i]._ry);
+            ctx.stroke();
+            mouseLines++;
+          }
+        }
+      }
+
       // ── Shooting Stars ──
       if (Math.random() < 0.004) {
         shootingStarsRef.current.push(createShootingStar(width, height));
@@ -335,6 +379,7 @@ const ParticleBackground = () => {
       window.removeEventListener('resize', resize);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseleave', handleMouseLeave);
+      window.removeEventListener('click', handleMouseClick);
     };
   }, [createStar, createShootingStar, createNebula]);
 

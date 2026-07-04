@@ -3,14 +3,8 @@ import { useGoogleAppsScript } from '../hooks/useGoogleAppsScript';
 import { Loader2, ExternalLink, FileText, Calendar, Users as AuthorsIcon } from 'lucide-react';
 
 const Publications = () => {
-  const { data, loading, error } = useGoogleAppsScript();
+  const { data, error } = useGoogleAppsScript();
 
-  if (loading) return (
-    <div className="loading-screen">
-      <Loader2 size={40} className="spinner" />
-      <p>Loading publications...</p>
-    </div>
-  );
 
   if (error) return (
     <div className="loading-screen">

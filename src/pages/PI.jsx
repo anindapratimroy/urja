@@ -252,13 +252,13 @@ const PI = () => {
         .pi-profile-card {
           display: flex;
           align-items: center;
-          gap: 2.5rem;
-          padding: 2.5rem;
+          gap: 1.5rem;
+          padding: 1.5rem 2rem;
         }
         .pi-avatar-ring {
           flex-shrink: 0;
-          width: 130px;
-          height: 130px;
+          width: 80px;
+          height: 80px;
           border-radius: 50%;
           background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-violet) 100%);
           padding: 4px;
@@ -276,7 +276,7 @@ const PI = () => {
           align-items: center;
           justify-content: center;
           font-family: 'Space Grotesk', sans-serif;
-          font-size: 2.8rem;
+          font-size: 1.8rem;
           font-weight: 700;
           color: var(--accent-blue-light);
           letter-spacing: 0.04em;
@@ -284,11 +284,11 @@ const PI = () => {
 
         .pi-info { flex: 1; }
         .pi-name {
-          font-size: clamp(1.6rem, 3vw, 2.2rem);
-          margin-bottom: 0.4rem;
+          font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+          margin-bottom: 0.2rem;
         }
         .pi-title-role {
-          font-size: var(--text-base);
+          font-size: var(--text-sm);
           font-weight: 600;
           color: var(--accent-blue-light);
           margin-bottom: 0.25rem;

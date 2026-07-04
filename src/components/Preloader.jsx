@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+import urjaLogo from '../assets/logo/urja_logo_processed.png';
+import iitiLogo from '../assets/logo/iiti_logo.png';
 
 /* ═══════════════════════════════════════════════════════════
    Preloader — shown ONCE per browser session (first load /
@@ -65,118 +67,7 @@ const Preloader = ({ onComplete }) => {
     };
   }, [onComplete]);
 
-  /* ─── IIT Indore SVG Logo (circular emblem) ─────────── */
-  const Logo = () => (
-    <svg
-      viewBox="0 0 200 200"
-      width="120"
-      height="120"
-      xmlns="http://www.w3.org/2000/svg"
-      style={{ filter: 'drop-shadow(0 0 18px rgba(59,130,246,0.35))' }}
-      aria-label="IIT Indore emblem"
-    >
-      <defs>
-        <linearGradient id="preloader-ring-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#60A5FA" />
-          <stop offset="100%" stopColor="#3B82F6" />
-        </linearGradient>
-        <linearGradient id="preloader-cog-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.6" />
-          <stop offset="100%" stopColor="#60A5FA" stopOpacity="0.3" />
-        </linearGradient>
-        <filter id="preloader-glow">
-          <feGaussianBlur stdDeviation="2.5" result="blur" />
-          <feMerge>
-            <feMergeNode in="blur" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
-      </defs>
-
-      {/* Outer ring */}
-      <circle
-        cx="100" cy="100" r="90"
-        fill="none"
-        stroke="url(#preloader-ring-grad)"
-        strokeWidth="2.5"
-        opacity="0.85"
-      />
-
-      {/* Inner ring */}
-      <circle
-        cx="100" cy="100" r="78"
-        fill="none"
-        stroke="url(#preloader-ring-grad)"
-        strokeWidth="1"
-        opacity="0.4"
-      />
-
-      {/* Gear / cog teeth (12 teeth around the outer ring) */}
-      {Array.from({ length: 12 }).map((_, i) => {
-        const angle = (i * 30 - 90) * (Math.PI / 180);
-        const innerR = 85;
-        const outerR = 94;
-        const x1 = 100 + innerR * Math.cos(angle);
-        const y1 = 100 + innerR * Math.sin(angle);
-        const x2 = 100 + outerR * Math.cos(angle);
-        const y2 = 100 + outerR * Math.sin(angle);
-        return (
-          <line
-            key={i}
-            x1={x1} y1={y1} x2={x2} y2={y2}
-            stroke="url(#preloader-cog-grad)"
-            strokeWidth="4"
-            strokeLinecap="round"
-          />
-        );
-      })}
-
-      {/* Small inner circle detail */}
-      <circle
-        cx="100" cy="100" r="6"
-        fill="none"
-        stroke="#60A5FA"
-        strokeWidth="1.5"
-        opacity="0.45"
-      />
-
-      {/* IIT text */}
-      <text
-        x="100" y="88"
-        textAnchor="middle"
-        fontFamily="'Space Grotesk', system-ui, sans-serif"
-        fontSize="26"
-        fontWeight="700"
-        fill="#F8FAFC"
-        letterSpacing="3"
-        filter="url(#preloader-glow)"
-      >
-        IIT
-      </text>
-
-      {/* INDORE text */}
-      <text
-        x="100" y="118"
-        textAnchor="middle"
-        fontFamily="'Space Grotesk', system-ui, sans-serif"
-        fontSize="16"
-        fontWeight="600"
-        fill="#60A5FA"
-        letterSpacing="5"
-      >
-        INDORE
-      </text>
-
-      {/* Decorative arc — bottom */}
-      <path
-        d="M 45 145 A 65 65 0 0 0 155 145"
-        fill="none"
-        stroke="url(#preloader-ring-grad)"
-        strokeWidth="1"
-        opacity="0.3"
-      />
-    </svg>
-  );
+  /* ─── Removed old SVG Logo component ─────────── */
 
   return (
     <div
@@ -238,9 +129,18 @@ const Preloader = ({ onComplete }) => {
           gap: '1.5rem',
         }}
       >
-        {/* Logo with pulse glow */}
-        <div className="urja-preloader__logo">
-          <Logo />
+        {/* Logos with pulse glow */}
+        <div className="urja-preloader__logos" style={{ display: 'flex', gap: '3rem', alignItems: 'center' }}>
+          <img src={iitiLogo} alt="IIT Indore" style={{ height: '120px', width: 'auto', filter: 'drop-shadow(0 0 12px rgba(255,255,255,0.8))' }} />
+          <img 
+            src={urjaLogo} 
+            alt="URJA Lab" 
+            style={{ 
+              height: '130px', 
+              width: 'auto', 
+              filter: 'drop-shadow(0 0 25px rgba(255, 255, 255, 0.5))'
+            }} 
+          />
         </div>
 
         {/* URJA LAB heading */}
@@ -322,7 +222,7 @@ const Preloader = ({ onComplete }) => {
           100% { opacity: 0.8; transform: scale(1.2); }
         }
 
-        .urja-preloader__logo {
+        .urja-preloader__logos {
           animation: urjaLogoPulse 2.5s ease-in-out infinite;
         }
         @keyframes urjaLogoPulse {

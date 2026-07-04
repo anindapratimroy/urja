@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Link, useLocation } from 'react-router-dom';
 import { Rocket, Users, BookOpen, Briefcase, Link as LinkIcon, Menu, X } from 'lucide-react';
+import urjaLogo from '../assets/logo/urja_logo_processed.png';
 
 const Navbar = () => {
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
+  const [isLogoOpen, setIsLogoOpen] = useState(false);
   
   const navLinks = [
     { name: 'Home', path: '/', icon: <Rocket size={18} /> },
@@ -20,6 +23,15 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="container navbar-container">
         <Link to="/" className="navbar-logo" onClick={closeMenu}>
+          <img 
+            src={urjaLogo} 
+            alt="URJA Lab Logo" 
+            className="navbar-logo-img" 
+            onClick={(e) => {
+              e.preventDefault();
+              setIsLogoOpen(true);
+            }}
+          />
           <span className="text-gradient">URJA</span> LAB
         </Link>
         
@@ -45,6 +57,17 @@ const Navbar = () => {
         </ul>
       </div>
 
+      {/* Logo Lightbox */}
+      {isLogoOpen && createPortal(
+        <div className="logo-lightbox" onClick={() => setIsLogoOpen(false)}>
+          <button className="lightbox-close" onClick={(e) => { e.stopPropagation(); setIsLogoOpen(false); }}>
+            <X size={32} />
+          </button>
+          <img src={urjaLogo} alt="URJA Lab Logo Full" className="lightbox-img" onClick={(e) => e.stopPropagation()} />
+        </div>,
+        document.body
+      )}
+
       <style>{`
         .navbar {
           position: fixed;
@@ -67,6 +90,7 @@ const Navbar = () => {
           justify-content: space-between;
           align-items: center;
           width: 100%;
+          gap: 6rem; /* Guarantees space between logo and links */
         }
 
         .navbar-logo {
@@ -78,11 +102,69 @@ const Navbar = () => {
           align-items: center;
           gap: 0.5rem;
           transition: transform 0.3s ease, text-shadow 0.3s ease;
+          white-space: nowrap;
         }
 
         .navbar-logo:hover {
           transform: translateZ(20px) scale(1.05);
           text-shadow: 0 0 20px rgba(96, 165, 250, 0.6);
+        }
+
+        .navbar-logo-img {
+          height: 48px;
+          width: auto;
+          margin-right: 0.5rem;
+          filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.4));
+          transition: transform 0.3s ease;
+        }
+        .navbar-logo-img:hover {
+          transform: scale(1.1);
+        }
+
+        /* Lightbox Styles */
+        .logo-lightbox {
+          position: fixed;
+          inset: 0;
+          z-index: 99999;
+          background: rgba(0, 0, 0, 0.85);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          backdrop-filter: blur(15px);
+          -webkit-backdrop-filter: blur(15px);
+          cursor: pointer;
+        }
+        .lightbox-close {
+          position: absolute;
+          top: 2rem;
+          right: 2rem;
+          background: rgba(255, 255, 255, 0.1);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          border-radius: 50%;
+          width: 50px;
+          height: 50px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+        .lightbox-close:hover {
+          background: rgba(255, 255, 255, 0.2);
+          transform: scale(1.1);
+        }
+        .lightbox-img {
+          max-width: 90vw;
+          max-height: 90vh;
+          object-fit: contain;
+          filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.5));
+          animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+          cursor: default;
+        }
+        @keyframes popIn {
+          0% { opacity: 0; transform: scale(0.8); }
+          100% { opacity: 1; transform: scale(1); }
         }
 
         .mobile-toggle {
@@ -99,9 +181,9 @@ const Navbar = () => {
 
         .navbar-links {
           display: flex;
-          gap: 2rem;
+          gap: 1.5rem; /* More balanced gap */
           list-style: none;
-          perspective: 1000px;
+          align-items: center;
         }
 
         .nav-link {
@@ -111,24 +193,29 @@ const Navbar = () => {
           color: var(--text-secondary);
           font-size: var(--text-sm);
           font-weight: 500;
-          padding: 0.5rem 0.8rem;
-          border-radius: 8px;
+          padding: 0.6rem 1.25rem;
+          border-radius: 100px;
           position: relative;
-          transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
-                      color 0.3s ease, 
-                      background 0.3s ease,
-                      box-shadow 0.3s ease;
-          transform-style: preserve-3d;
+          transition: all 0.25s ease;
+          background: transparent;
+          border: 1px solid transparent;
+          white-space: nowrap;
         }
 
-        .nav-link:hover, .nav-link.active {
+        .nav-link:hover {
           color: var(--text-primary);
-          background: rgba(255, 255, 255, 0.05);
-          transform: translateY(-3px) translateZ(30px);
-          box-shadow: 0 10px 20px rgba(0,0,0,0.2), 0 0 15px rgba(59, 130, 246, 0.2);
+          background: rgba(255, 255, 255, 0.04);
+          transform: translateY(-2px);
         }
 
-        @media (max-width: 768px) {
+        .nav-link.active {
+          color: var(--text-primary);
+          background: rgba(59, 130, 246, 0.12);
+          border-color: rgba(59, 130, 246, 0.25);
+          box-shadow: 0 4px 15px rgba(59, 130, 246, 0.15), inset 0 0 10px rgba(59, 130, 246, 0.05);
+        }
+
+        @media (max-width: 1100px) {
           .mobile-toggle {
             display: block;
           }

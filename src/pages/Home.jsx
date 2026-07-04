@@ -37,7 +37,7 @@ const Home = () => {
       <section className="hero-section">
         <div className="hero-backdrop" />
         <div className="container hero-inner">
-          <div className="hero-tag">IIT Indore · Department of Astronomy, Astrophysics &amp; Space Engineering</div>
+          <div className="hero-tag">Department of Astronomy, Astrophysics &amp; Space Engineering · IIT Indore</div>
           <h1 className="hero-title">
             Ultra Relativistic Jet-based<br />
             <span className="text-gradient">Astronomy Laboratory</span>
@@ -55,23 +55,6 @@ const Home = () => {
             </Link>
           </div>
 
-          {/* stats row */}
-          <div className="hero-stats">
-            <div className="stat-item">
-              <span className="stat-number text-gradient">2021</span>
-              <span className="stat-label">Founded</span>
-            </div>
-            <div className="stat-divider" />
-            <div className="stat-item">
-              <span className="stat-number text-gradient">IIT</span>
-              <span className="stat-label">Indore</span>
-            </div>
-            <div className="stat-divider" />
-            <div className="stat-item">
-              <span className="stat-number text-gradient">AGN</span>
-              <span className="stat-label">Specialisation</span>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -164,11 +147,11 @@ const Home = () => {
       <style>{`
         /* ─ Hero ─ */
         .hero-section {
-          min-height: 90vh;
+          min-height: 40vh;
           display: flex;
           align-items: center;
           position: relative;
-          padding: 6rem 0 4rem;
+          padding: 5rem 0 1rem;
         }
         .hero-backdrop {
           position: absolute;
@@ -209,7 +192,7 @@ const Home = () => {
           display: flex;
           gap: 1rem;
           flex-wrap: wrap;
-          margin-bottom: 4rem;
+          margin-bottom: 2rem;
         }
         .hero-stats {
           display: flex;
@@ -237,9 +220,9 @@ const Home = () => {
           color: var(--accent-cyan);
           margin-bottom: 0.75rem;
         }
-        .section-header { margin-bottom: 3rem; }
-        .section-header h2 { margin-bottom: 1rem; }
-        .pi-section, .research-section, .quicknav-section { padding: 5rem 0; }
+        .section-header { margin-bottom: 1.5rem; }
+        .section-header h2 { margin-bottom: 0.5rem; }
+        .pi-section, .research-section, .quicknav-section { padding: 2rem 0; }
         
         /* ─ PI Card ─ */
         .pi-card {

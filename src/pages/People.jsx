@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useGoogleAppsScript } from '../hooks/useGoogleAppsScript';
-import { User, Loader2, Mail, ExternalLink } from 'lucide-react';
+import { User, Loader2, Mail, ExternalLink, X } from 'lucide-react';
+
+import imgAyush from '../assets/people/ayush_garg.jpeg';
+import imgChandan from '../assets/people/chandan_kumar.jpg';
+import imgShraddha from '../assets/people/shraddha.jpg';
 
 const People = () => {
-  const { data, loading, error } = useGoogleAppsScript();
+  const { data, error } = useGoogleAppsScript();
+  const [selectedImage, setSelectedImage] = useState(null);
 
-  if (loading) return (
-    <div className="loading-screen">
-      <Loader2 size={40} className="spinner" />
-      <p>Loading team data...</p>
-    </div>
-  );
 
   if (error) return (
     <div className="loading-screen">
@@ -21,11 +21,25 @@ const People = () => {
   const activeMembers = data.people?.active || [];
   const alumniMembers = data.people?.alumni || [];
 
+  const getPhoto = (member) => {
+    const name = (member.name || '').toLowerCase();
+    if (name.includes('ayush')) return imgAyush;
+    if (name.includes('chandan')) return imgChandan;
+    if (name.includes('shraddha')) return imgShraddha;
+    return member.photo;
+  };
+
   const MemberCard = ({ member }) => (
     <div className="glass-card member-card">
       <div className="member-avatar">
-        {member.photo
-          ? <img src={member.photo} alt={member.name} className="avatar-img" />
+        {getPhoto(member)
+          ? <img 
+              src={getPhoto(member)} 
+              alt={member.name} 
+              className="avatar-img" 
+              onClick={() => setSelectedImage(getPhoto(member))}
+              style={{ cursor: 'pointer' }}
+            />
           : <User size={32} color="var(--accent-cyan)" />
         }
       </div>
@@ -102,6 +116,19 @@ const People = () => {
         </section>
       </div>
 
+      {/* Full Screen Image Overlay via Portal */}
+      {selectedImage && createPortal(
+        <div className="lightbox-overlay" onClick={() => setSelectedImage(null)}>
+          <button className="lightbox-close" onClick={() => setSelectedImage(null)}>
+            <X size={28} />
+          </button>
+          <div className="lightbox-image-container" onClick={(e) => e.stopPropagation()}>
+            <img src={selectedImage} alt="Full screen" className="lightbox-image" />
+          </div>
+        </div>,
+        document.body
+      )}
+
       <style>{`
         .page-hero {
           padding: 5rem 0 3rem;
@@ -142,8 +169,8 @@ const People = () => {
           gap: 0;
         }
         .member-avatar {
-          width: 80px; height: 80px;
-          border-radius: 50%;
+          width: 140px; height: 140px;
+          border-radius: 16px;
           border: 2px solid rgba(59,130,246,0.3);
           background: rgba(59,130,246,0.06);
           display: flex; align-items: center; justify-content: center;
@@ -189,6 +216,78 @@ const People = () => {
           text-transform: uppercase;
           color: var(--accent-cyan);
           margin-bottom: 0.75rem;
+        }
+
+        /* Lightbox Styles */
+        .lightbox-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          background: rgba(2, 6, 23, 0.95);
+          backdrop-filter: blur(12px);
+          z-index: 999999;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          animation: fadeIn 0.2s ease-out;
+          padding: 2rem;
+        }
+        
+        .lightbox-image-container {
+          position: relative;
+          max-width: 100%;
+          max-height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .lightbox-image {
+          max-width: 100%;
+          max-height: 90vh;
+          border-radius: 12px;
+          box-shadow: 0 0 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(59, 130, 246, 0.2);
+          object-fit: contain;
+          cursor: default;
+          animation: scaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .lightbox-close {
+          position: absolute;
+          top: 2rem;
+          right: 2rem;
+          background: rgba(255, 255, 255, 0.1);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          color: white;
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          z-index: 1000000;
+        }
+
+        .lightbox-close:hover {
+          background: rgba(239, 68, 68, 0.2);
+          border-color: rgba(239, 68, 68, 0.5);
+          color: #ef4444;
+          transform: scale(1.1);
+        }
+
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+
+        @keyframes scaleUp {
+          from { transform: scale(0.8); opacity: 0; }
+          to { transform: scale(1); opacity: 1; }
         }
       `}</style>
     </div>

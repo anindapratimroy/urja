@@ -4,14 +4,8 @@ import { Loader2, ChevronRight, GraduationCap, Clock, Mail } from 'lucide-react'
 import { Link } from 'react-router-dom';
 
 const Opportunities = () => {
-  const { data, loading, error } = useGoogleAppsScript();
+  const { data, error } = useGoogleAppsScript();
 
-  if (loading) return (
-    <div className="loading-screen">
-      <Loader2 size={40} className="spinner" />
-      <p>Loading opportunities...</p>
-    </div>
-  );
 
   if (error) return (
     <div className="loading-screen">

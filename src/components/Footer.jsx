@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { MapPin, ArrowUpRight } from 'lucide-react';
+import { MapPin, ArrowUpRight, Loader2 } from 'lucide-react';
 
 const Footer = () => {
+  const [mapLoaded, setMapLoaded] = useState(false);
   return (
     <footer className="footer">
       <div className="footer-inner container">
@@ -14,7 +15,7 @@ const Footer = () => {
             <p className="footer-tagline">
               Ultra Relativistic Jet-based Astronomy Laboratory
             </p>
-            <div className="footer-address">
+            <div className="footer-address" style={{ marginBottom: '1.25rem' }}>
               <MapPin size={14} color="var(--accent-blue-light)" style={{ flexShrink: 0, marginTop: '2px' }} />
               <span>
                 POD 1E 402, Dept. of Astronomy, Astrophysics &amp; Space Engineering,
@@ -54,6 +55,28 @@ const Footer = () => {
                 </a>
               </li>
             </ul>
+          </div>
+
+          <div className="footer-nav-group">
+            <h5 className="footer-nav-title">Location</h5>
+            <div className="footer-map">
+              {!mapLoaded && (
+                <div className="map-skeleton">
+                  <Loader2 size={24} className="spinner" />
+                </div>
+              )}
+              <iframe
+                src="https://maps.google.com/maps?q=GWHF%2BF9C,%20Indore,%20Madhya%20Pradesh%20453552&t=k&z=16&ie=UTF8&iwloc=&output=embed"
+                width="100%"
+                height="100%"
+                style={{ border: 0, opacity: mapLoaded ? 1 : 0, transition: 'opacity 0.6s ease' }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="URJA Lab Location"
+                onLoad={() => setMapLoaded(true)}
+              />
+            </div>
           </div>
         </div>
 
@@ -96,8 +119,8 @@ const Footer = () => {
 
         .footer-top {
           display: grid;
-          grid-template-columns: 1.6fr 1fr 1fr;
-          gap: 3rem;
+          grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
+          gap: 2.5rem;
           padding-bottom: 2.5rem;
         }
 
@@ -122,6 +145,40 @@ const Footer = () => {
           font-size: 0.88rem;
           color: var(--text-muted);
           line-height: 1.6;
+        }
+
+        .footer-map {
+          height: 180px;
+          width: 100%;
+          border-radius: 8px;
+          overflow: hidden;
+          border: 1px solid var(--glass-border);
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+          transition: border-color 0.3s ease;
+          position: relative;
+          z-index: 10;
+          background: rgba(15, 23, 42, 0.6);
+        }
+        .map-skeleton {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: var(--accent-cyan);
+          z-index: -1;
+        }
+        .spinner {
+          animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        .footer-map iframe {
+          pointer-events: all !important;
+          width: 100%;
+          height: 100%;
+        }
+        .footer-map:hover {
+          border-color: rgba(96, 165, 250, 0.3);
         }
 
         .footer-nav-title {
