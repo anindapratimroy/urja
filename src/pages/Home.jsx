@@ -75,7 +75,7 @@ const Home = () => {
               </div>
               <div className="pi-body">
                 <h3>Dr. Amit Shukla</h3>
-                <p className="pi-title text-gradient">Associate Professor</p>
+                <p className="pi-title text-gradient">Assistant Professor</p>
                 <p className="pi-dept">Dept. of Astronomy, Astrophysics &amp; Space Engineering · IIT Indore</p>
                 <p>
                   Dr. Shukla's research focuses on high-energy astrophysics with an emphasis on understanding
@@ -83,8 +83,8 @@ const Home = () => {
                   His work involves multi-wavelength observational campaigns and theoretical modelling
                   of blazar variability, emission mechanisms, and jet formation.
                 </p>
-                <div className="pi-meta-row">
-                  <span className="pi-meta-item">
+                <div className="pi-meta-row" style={{ marginBottom: '1.5rem' }}>
+                  <span className="pi-meta-item" style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '0.9rem', color: 'var(--text-muted)' }}>
                     <MapPin size={15} style={{ flexShrink: 0 }} />
                     <a 
                       href="https://www.google.com/maps/search/?api=1&query=GWHF%2BF9C,+Indore,+Madhya+Pradesh+453552"
@@ -271,9 +271,9 @@ const Home = () => {
           pointer-events: none;
         }
         .pi-body { flex: 1; }
-        .pi-body h3 { font-size: 1.8rem; margin-bottom: 0.25rem; }
-        .pi-title { font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem; }
-        .pi-dept { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.25rem; }
+        .pi-body h3 { font-size: 2.2rem; margin-bottom: 0.25rem; }
+        .pi-title { font-size: 1.3rem; font-weight: 600; margin-bottom: 0.4rem; }
+        .pi-dept { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 1.25rem; }
 
         /* ─ Research Cards ─ */
         .research-card { display: flex; flex-direction: column; gap: 0.75rem; }
