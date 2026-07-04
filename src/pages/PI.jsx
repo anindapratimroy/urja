@@ -102,7 +102,7 @@ const PI = () => {
                   <span className="pi-meta-item">
                     <MapPin size={18} style={{ flexShrink: 0 }} />
                     <a 
-                      href="https://www.google.com/maps/search/?api=1&query=Department+of+Astronomy,+Astrophysics+%26+Space+Engineering,+IIT+Indore"
+                      href="https://www.google.com/maps/search/?api=1&query=GWHF%2BF9C,+Indore,+Madhya+Pradesh+453552"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="pi-meta-link"

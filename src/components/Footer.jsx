@@ -18,7 +18,7 @@ const Footer = () => {
             <div className="footer-address" style={{ marginBottom: '1.25rem' }}>
               <MapPin size={14} color="var(--accent-blue-light)" style={{ flexShrink: 0, marginTop: '2px' }} />
               <a 
-                href="https://www.google.com/maps/search/?api=1&query=Department+of+Astronomy,+Astrophysics+%26+Space+Engineering,+IIT+Indore"
+                href="https://www.google.com/maps/search/?api=1&query=GWHF%2BF9C,+Indore,+Madhya+Pradesh+453552"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="footer-address-link"
