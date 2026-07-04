@@ -7,11 +7,8 @@ import Publications from './pages/Publications';
 import Opportunities from './pages/Opportunities';
 import Collaborations from './pages/Collaborations';
 import PI from './pages/PI';
+import Gallery from './pages/Gallery';
 import Preloader from './components/Preloader';
-import { prefetchData } from './hooks/useGoogleAppsScript';
-
-// Initiate background fetching immediately when the app loads
-prefetchData();
 function App() {
   const [showPreloader, setShowPreloader] = useState(() => {
     // Only show preloader if it hasn't been shown in this session
@@ -36,6 +33,7 @@ function App() {
           <Route path="/publications" element={<Publications />} />
           <Route path="/opportunities" element={<Opportunities />} />
           <Route path="/collaborations" element={<Collaborations />} />
+          <Route path="/gallery" element={<Gallery />} />
           <Route path="/pi" element={<PI />} />
         </Routes>
       </Layout>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Link, useLocation } from 'react-router-dom';
-import { Rocket, Users, BookOpen, Briefcase, Link as LinkIcon, Menu, X } from 'lucide-react';
+import { Rocket, Users, BookOpen, Briefcase, Link as LinkIcon, Image as ImageIcon, Menu, X } from 'lucide-react';
 import urjaLogo from '../assets/logo/urja_logo_processed.png';
 
 const Navbar = () => {
@@ -15,6 +15,7 @@ const Navbar = () => {
     { name: 'Publications', path: '/publications', icon: <BookOpen size={18} /> },
     { name: 'Opportunities', path: '/opportunities', icon: <Briefcase size={18} /> },
     { name: 'Collaborations', path: '/collaborations', icon: <LinkIcon size={18} /> },
+    { name: 'Gallery', path: '/gallery', icon: <ImageIcon size={18} /> },
   ];
 
   const closeMenu = () => setIsOpen(false);

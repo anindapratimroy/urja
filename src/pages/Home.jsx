@@ -47,10 +47,11 @@ const Home = () => {
             relativistic jets, supermassive black holes, and extreme high-energy astrophysical phenomena.
           </p>
           <div className="hero-cta">
-            <Link to="/research" className="btn">
-              Our Research <ArrowRight size={18} />
+            <Link to="/research" className="btn hero-btn-primary">
+              <span>Our Research</span>
+              <ArrowRight size={18} className="btn-arrow" />
             </Link>
-            <Link to="/people" className="btn btn-outline">
+            <Link to="/people" className="btn hero-btn-secondary">
               Meet the Team
             </Link>
           </div>
@@ -201,10 +202,63 @@ const Home = () => {
         }
         .hero-cta {
           display: flex;
-          gap: 1rem;
+          gap: 1.25rem;
           flex-wrap: wrap;
-          margin-bottom: 2rem;
+          margin-bottom: 2.5rem;
         }
+        
+        .hero-btn-primary {
+          background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+          border: 1px solid rgba(59, 130, 246, 0.5);
+          box-shadow: 0 4px 15px rgba(59, 130, 246, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+          transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+          display: flex;
+          align-items: center;
+          gap: 0.6rem;
+          padding: 0.9rem 2.25rem;
+          border-radius: 8px;
+          color: white;
+          font-weight: 600;
+          font-size: 1.05rem;
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .hero-btn-primary:hover {
+          transform: translateY(-4px) scale(1.02);
+          box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+          background: linear-gradient(135deg, #4f8bf9, #2563eb);
+          border-color: rgba(96, 165, 250, 0.8);
+        }
+        
+        .hero-btn-primary .btn-arrow {
+          transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .hero-btn-primary:hover .btn-arrow {
+          transform: translateX(5px);
+        }
+
+        .hero-btn-secondary {
+          background: rgba(20, 25, 40, 0.5);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          color: var(--text-primary);
+          transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+          padding: 0.9rem 2.25rem;
+          border-radius: 8px;
+          font-weight: 500;
+          font-size: 1.05rem;
+          backdrop-filter: blur(8px);
+        }
+        
+        .hero-btn-secondary:hover {
+          background: rgba(255, 255, 255, 0.08);
+          border-color: rgba(255, 255, 255, 0.3);
+          transform: translateY(-4px) scale(1.02);
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+          color: white;
+        }
+        
         .hero-stats {
           display: flex;
           align-items: center;

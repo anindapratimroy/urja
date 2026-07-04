@@ -29,6 +29,47 @@ const People = () => {
     return member.photo;
   };
 
+  const rolePriority = {
+    'post doc': 1,
+    'ph.d.': 2,
+    'm.tech': 3,
+    'm.sc.': 3,
+    'b.tech': 4,
+    'b.sc.': 4,
+  };
+
+  const getRolePriority = (role) => {
+    const r = (role || '').toLowerCase();
+    for (const key in rolePriority) {
+      if (r.includes(key)) return rolePriority[key];
+    }
+    return 5;
+  };
+
+  const sortedActiveMembers = [...activeMembers].sort((a, b) => {
+    const pA = getRolePriority(a.role);
+    const pB = getRolePriority(b.role);
+    if (pA !== pB) return pA - pB;
+    
+    const batchA = parseInt(a.batch) || 9999;
+    const batchB = parseInt(b.batch) || 9999;
+    if (batchA !== batchB) return batchA - batchB;
+    
+    return (a.name || '').localeCompare(b.name || '');
+  });
+
+  const sortedAlumniMembers = [...alumniMembers].sort((a, b) => {
+    const pA = getRolePriority(a.role);
+    const pB = getRolePriority(b.role);
+    if (pA !== pB) return pA - pB;
+    
+    const batchA = parseInt(a.batch) || 9999;
+    const batchB = parseInt(b.batch) || 9999;
+    if (batchA !== batchB) return batchA - batchB;
+    
+    return (a.name || '').localeCompare(b.name || '');
+  });
+
   const MemberCard = ({ member }) => (
     <div className="glass-card member-card">
       <div className="member-avatar">
@@ -43,19 +84,40 @@ const People = () => {
           : <User size={32} color="var(--accent-cyan)" />
         }
       </div>
-      <div className="member-info">
+      <div className="member-info" style={{ width: '100%' }}>
         <h4 className="member-name">{member.name || '—'}</h4>
-        <p className="member-role text-gradient">{member.role || 'Researcher'}</p>
-        {member.topic && <p className="member-topic">{member.topic}</p>}
-        <div className="member-links">
-          {member.email && (
-            <a href={`mailto:${member.email}`} className="icon-link" title="Email">
-              <Mail size={16} />
+        <p className="member-role text-gradient" style={{ marginBottom: member.research ? '0.75rem' : '1rem' }}>{member.role || 'Researcher'}</p>
+        
+        {member.research && (
+          <div className="member-research">
+            <span style={{ display: 'block', fontSize: '0.75rem', color: 'var(--accent-cyan)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.2rem' }}>Research Interests</span>
+            <p>{member.research}</p>
+          </div>
+        )}
+        
+        {member.email && (
+          <div className="member-email-box">
+            <Mail size={14} style={{ color: 'var(--text-secondary)' }} />
+            <span className="email-text">
+              {member.email.includes('@') ? member.email.split('@')[0] : member.email}
+            </span>
+          </div>
+        )}
+
+        <div className="member-links" style={{ marginTop: '1.25rem' }}>
+          {member.linkedin && (
+            <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="icon-link" title="LinkedIn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
             </a>
           )}
-          {member.link && (
-            <a href={member.link} target="_blank" rel="noopener noreferrer" className="icon-link" title="Profile">
-              <ExternalLink size={16} />
+          {member.page && (
+            <a href={member.page} target="_blank" rel="noopener noreferrer" className="icon-link" title="Personal Website">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+            </a>
+          )}
+          {(member.googleScholar || member.scholar || member.google_scholar) && (
+            <a href={member.googleScholar || member.scholar || member.google_scholar} target="_blank" rel="noopener noreferrer" className="icon-link" title="Google Scholar">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
             </a>
           )}
         </div>
@@ -92,10 +154,11 @@ const People = () => {
           <div className="team-section-header">
             <h2>Active Members</h2>
             <div className="count-badge">{activeMembers.length}</div>
+            <span style={{ marginLeft: 'auto', fontSize: '1rem', fontWeight: '500', color: 'var(--text-secondary)', letterSpacing: '0.02em' }}>* add @iiti.ac.in for the emails</span>
           </div>
           <div className="grid grid-cols-3 gap-4">
-            {activeMembers.length > 0
-              ? activeMembers.map((m, i) => <MemberCard key={i} member={m} />)
+            {sortedActiveMembers.length > 0
+              ? sortedActiveMembers.map((m, i) => <MemberCard key={i} member={m} />)
               : <EmptyState label="Active members" />
             }
           </div>
@@ -106,10 +169,11 @@ const People = () => {
           <div className="team-section-header">
             <h2>Alumni</h2>
             <div className="count-badge">{alumniMembers.length}</div>
+            <span style={{ marginLeft: 'auto', fontSize: '1rem', fontWeight: '500', color: 'var(--text-secondary)', letterSpacing: '0.02em' }}>* add @iiti.ac.in for the emails</span>
           </div>
           <div className="grid grid-cols-3 gap-4">
-            {alumniMembers.length > 0
-              ? alumniMembers.map((m, i) => <MemberCard key={i} member={m} />)
+            {sortedAlumniMembers.length > 0
+              ? sortedAlumniMembers.map((m, i) => <MemberCard key={i} member={m} />)
               : <EmptyState label="Alumni" />
             }
           </div>
@@ -184,8 +248,8 @@ const People = () => {
         .member-links { display: flex; gap: 0.75rem; justify-content: center; }
         .icon-link {
           color: var(--text-muted);
-          display: flex; align-items: center;
-          padding: 0.4rem;
+          display: flex; align-items: center; justify-content: center;
+          width: 32px; height: 32px;
           border-radius: 6px;
           border: 1px solid var(--glass-border);
           transition: all 0.2s ease;
@@ -194,6 +258,35 @@ const People = () => {
           color: var(--accent-cyan);
           border-color: rgba(59,130,246,0.4);
           background: rgba(59,130,246,0.08);
+        }
+        .member-research {
+          font-size: 0.85rem;
+          color: var(--text-secondary);
+          margin-bottom: 1rem;
+          line-height: 1.4;
+          text-align: center;
+          padding: 0 0.5rem;
+        }
+        .member-email-box {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          background: rgba(255,255,255,0.03);
+          border: 1px solid var(--glass-border);
+          padding: 0.4rem 0.75rem;
+          border-radius: 8px;
+          margin: 0 auto;
+          width: fit-content;
+        }
+        .email-text {
+          font-size: 0.8rem;
+          color: var(--text-secondary);
+          text-decoration: none;
+          transition: color 0.2s;
+        }
+        .member-email-box:hover .email-text, .member-email-box:hover svg {
+          color: var(--accent-blue-light) !important;
         }
 
         .empty-state-card { padding: 3rem; }
