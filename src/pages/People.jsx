@@ -50,9 +50,9 @@ const People = () => {
     const pB = getRolePriority(b.role);
     if (pA !== pB) return pA - pB;
     
-    const batchA = parseInt(a.batch) || 9999;
-    const batchB = parseInt(b.batch) || 9999;
-    if (batchA !== batchB) return batchA - batchB;
+    const batchA = String(a.batch || 'zzzz').toLowerCase();
+    const batchB = String(b.batch || 'zzzz').toLowerCase();
+    if (batchA !== batchB) return batchA.localeCompare(batchB);
     
     return (a.name || '').localeCompare(b.name || '');
   });
@@ -62,16 +62,16 @@ const People = () => {
     const pB = getRolePriority(b.role);
     if (pA !== pB) return pA - pB;
     
-    const batchA = parseInt(a.batch) || 9999;
-    const batchB = parseInt(b.batch) || 9999;
-    if (batchA !== batchB) return batchA - batchB;
+    const batchA = String(a.batch || 'zzzz').toLowerCase();
+    const batchB = String(b.batch || 'zzzz').toLowerCase();
+    if (batchA !== batchB) return batchA.localeCompare(batchB);
     
     return (a.name || '').localeCompare(b.name || '');
   });
 
   const MemberCard = ({ member }) => (
-    <div className="glass-card flex flex-col items-center text-center p-6 md:p-8 hover:border-accent-blue/30 group transition-colors">
-      <div className="w-28 h-28 md:w-36 md:h-36 rounded-2xl border-2 border-accent-blue/30 bg-accent-blue/5 flex items-center justify-center mb-5 overflow-hidden shadow-lg group-hover:border-accent-blue-light/50 transition-colors">
+    <div className="glass-card flex flex-col items-center text-center p-4 md:p-8 hover:border-accent-blue/30 group transition-colors">
+      <div className="w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36 rounded-2xl border-2 border-accent-blue/30 bg-accent-blue/5 flex items-center justify-center mb-3 md:mb-5 overflow-hidden shadow-lg group-hover:border-accent-blue-light/50 transition-colors">
         {getPhoto(member)
           ? <img 
               src={getPhoto(member)} 
@@ -83,8 +83,8 @@ const People = () => {
         }
       </div>
       <div className="w-full">
-        <h4 className="text-lg md:text-xl font-semibold mb-1 group-hover:text-accent-cyan transition-colors">{member.name || '—'}</h4>
-        <p className="text-sm md:text-base font-bold text-gradient mb-3 md:mb-4">{member.role || 'Researcher'}</p>
+        <h4 className="text-base sm:text-lg md:text-xl font-semibold mb-1 group-hover:text-accent-cyan transition-colors line-clamp-1">{member.name || '—'}</h4>
+        <p className="text-xs sm:text-sm md:text-base font-bold text-gradient mb-3 md:mb-4">{member.role || 'Researcher'}</p>
         
         {member.research && (
           <div className="text-sm text-slate-400 mb-4 px-2 text-center leading-relaxed">
@@ -156,7 +156,7 @@ const People = () => {
               * add @iiti.ac.in for the emails
             </span>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 md:gap-8">
             {sortedActiveMembers.length > 0
               ? sortedActiveMembers.map((m, i) => <MemberCard key={i} member={m} />)
               : <EmptyState label="Active members" />
@@ -175,7 +175,7 @@ const People = () => {
               * add @iiti.ac.in for the emails
             </span>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 md:gap-8">
             {sortedAlumniMembers.length > 0
               ? sortedAlumniMembers.map((m, i) => <MemberCard key={i} member={m} />)
               : <EmptyState label="Alumni" />

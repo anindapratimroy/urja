@@ -57,18 +57,19 @@ const Collaborations = () => {
                   </div>
                 </div>
                 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+                <div className="grid grid-cols-2 gap-4 sm:gap-6 md:gap-8">
                   {groupedCollabs[country].map((collab, index) => (
-                    <div key={index} className="glass-card flex flex-col sm:flex-row items-start gap-5 md:gap-6 p-6 md:p-8 bg-slate-900/40 hover:bg-slate-800/60 hover:-translate-y-1.5 transition-all duration-400 group relative">
+                    <div key={index} className="glass-card flex flex-col sm:flex-row items-start gap-3 sm:gap-5 md:gap-6 p-4 sm:p-6 md:p-8 bg-slate-900/40 hover:bg-slate-800/60 hover:-translate-y-1.5 transition-all duration-400 group relative">
                       <div className="shrink-0 relative">
-                        <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-blue-500/10 to-emerald-500/5 border border-accent-blue/20 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-105 group-hover:-rotate-3 group-hover:border-accent-blue/50">
-                          <User size={24} className="text-accent-cyan" />
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-gradient-to-br from-blue-500/10 to-emerald-500/5 border border-accent-blue/20 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-105 group-hover:-rotate-3 group-hover:border-accent-blue/50">
+                          <User size={20} className="text-accent-cyan sm:hidden" />
+                          <User size={24} className="text-accent-cyan hidden sm:block" />
                         </div>
                       </div>
                       
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-lg md:text-xl font-semibold mb-1 text-white truncate">{collab.name || 'Collaborator'}</h4>
-                        {collab.type && <p className="text-sm md:text-base font-medium text-accent-cyan mb-3">{collab.type}</p>}
+                        <h4 className="text-base sm:text-lg md:text-xl font-semibold mb-1 text-white truncate">{collab.name || 'Collaborator'}</h4>
+                        {collab.type && <p className="text-xs sm:text-sm md:text-base font-medium text-accent-cyan mb-2 sm:mb-3">{collab.type}</p>}
                         
                         {collab.affiliation && (
                           <div className="flex items-start gap-2 text-sm text-slate-400 mb-2 leading-relaxed">
@@ -79,8 +80,8 @@ const Collaborations = () => {
                         
                         {collab.area && (
                           <div className="mt-4 pt-3 border-t border-dashed border-white/10">
-                            <span className="block text-xs uppercase text-slate-500 tracking-widest mb-1.5">Research Area</span>
-                            <p className="text-sm md:text-base text-slate-400 m-0 leading-relaxed">{collab.area}</p>
+                            <span className="block text-[10px] sm:text-xs uppercase text-slate-500 tracking-widest mb-1.5">Research Area</span>
+                            <p className="text-xs sm:text-sm md:text-base text-slate-400 m-0 leading-relaxed line-clamp-2 sm:line-clamp-none">{collab.area}</p>
                           </div>
                         )}
                       </div>
@@ -90,7 +91,7 @@ const Collaborations = () => {
                           href={collab.website.startsWith('http') ? collab.website : (collab.website.toLowerCase() === 'website' ? '#' : `https://${collab.website}`)} 
                           target="_blank" 
                           rel="noopener noreferrer" 
-                          className="shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-lg border border-white/10 bg-white/[0.02] text-slate-500 flex items-center justify-center transition-all hover:text-accent-cyan hover:border-accent-blue/40 hover:bg-accent-blue/10 hover:-translate-y-0.5 absolute top-6 right-6 sm:relative sm:top-0 sm:right-0"
+                          className="shrink-0 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-lg border border-white/10 bg-white/[0.02] text-slate-500 flex items-center justify-center transition-all hover:text-accent-cyan hover:border-accent-blue/40 hover:bg-accent-blue/10 hover:-translate-y-0.5 absolute top-4 right-4 sm:relative sm:top-0 sm:right-0"
                           title="Visit Website"
                           onClick={(e) => {
                             if(collab.website.toLowerCase() === 'website') {

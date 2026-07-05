@@ -88,7 +88,7 @@ const Home = () => {
             
             <div className="flex-1">
               <h3 className="text-2xl md:text-3xl mb-1">Dr. Amit Shukla</h3>
-              <p className="text-lg md:text-xl font-semibold text-gradient mb-2">Assistant Professor</p>
+              <p className="text-lg md:text-xl font-semibold text-gradient mb-2">Associate Professor</p>
               <p className="text-sm md:text-base text-slate-400 mb-6">Dept. of Astronomy, Astrophysics &amp; Space Engineering · IIT Indore</p>
               
               <p className="text-slate-300 text-sm md:text-base leading-relaxed mb-6">

@@ -13,7 +13,7 @@ const researchInterests = [
 ];
 
 const positions = [
-  { title: 'Assistant Professor', institution: 'IIT Indore, India', duration: 'Oct 2019 – Present' },
+  { title: 'Associate Professor', institution: 'IIT Indore, India', duration: 'Oct 2019 – Present' },
   { title: 'Visitor Post Doctoral Fellow', institution: 'IUCAA, Pune, India', duration: 'Jan 2019 – Aug 2019' },
   { title: 'Post Doctoral Fellow', institution: 'University of Würzburg, Germany', duration: 'Mar 2016 – Sep 2018' },
   { title: 'Post Doctoral Fellow', institution: 'ETH Zurich, Switzerland', duration: 'Nov 2014 – Nov 2015' },
@@ -70,7 +70,7 @@ const PI = () => {
 
               <div className="flex flex-col gap-3 md:gap-4">
                 <h2 className="text-3xl md:text-5xl font-extrabold m-0">Dr. Amit <span className="text-gradient">Shukla</span></h2>
-                <p className="text-lg md:text-xl font-semibold text-accent-cyan m-0">Assistant Professor</p>
+                <p className="text-lg md:text-xl font-semibold text-accent-cyan m-0">Associate Professor</p>
                 <div className="text-slate-400 space-y-1 text-sm md:text-base">
                   <p className="m-0">Discipline of Astronomy, Astrophysics &amp; Space Engineering (DAASE)</p>
                   <p className="m-0">Indian Institute of Technology (IIT) Indore</p>
@@ -112,7 +112,7 @@ const PI = () => {
             </h3>
             <div className="space-y-4 text-base md:text-lg text-slate-300 leading-relaxed">
               <p>
-                Hi, I am an Assistant Professor at the Discipline of Astronomy, Astrophysics and Space Engineering at the Indian Institute of Technology Indore.
+                Hi, I am an Associate Professor at the Discipline of Astronomy, Astrophysics and Space Engineering at the Indian Institute of Technology Indore.
               </p>
               <p>
                 My primary research interest is to study gamma-ray Astronomy, Active Galactic Nuclei (AGN), Blazars, and High Energy Astrophysics using multi-wavelength & multi-messenger observations. In particular, my research interests include the study of astrophysical jets, AGN, and Gamma-Ray Bursts (GRBs).
