@@ -51,10 +51,23 @@ const People = () => {
     if (pA !== pB) return pA - pB;
     
     const getBatchNum = (member) => {
-      const val = member.batch || member['joining year'] || member.joiningYear || member.joining_year || member.year;
-      if (!val) return 9999999999;
-      const num = parseInt(String(val).replace(/\D/g, ''));
-      return isNaN(num) ? 9999999999 : num;
+      let val = '';
+      for (const key in member) {
+        const k = key.toLowerCase();
+        if (k.includes('batch') || k.includes('join') || k.includes('year')) {
+          val = member[key];
+          break;
+        }
+      }
+      if (!val) return 9999;
+      
+      // Extract all 4-digit numbers (e.g. "2026/2021" -> ["2026", "2021"])
+      // The joining year is usually the last number in the format
+      const matches = String(val).match(/\d{4}/g);
+      if (matches && matches.length > 0) {
+        return parseInt(matches[matches.length - 1], 10);
+      }
+      return 9999;
     };
     
     const batchA = getBatchNum(a);
@@ -70,10 +83,21 @@ const People = () => {
     if (pA !== pB) return pA - pB;
     
     const getBatchNum = (member) => {
-      const val = member.batch || member['joining year'] || member.joiningYear || member.joining_year || member.year;
-      if (!val) return 9999999999;
-      const num = parseInt(String(val).replace(/\D/g, ''));
-      return isNaN(num) ? 9999999999 : num;
+      let val = '';
+      for (const key in member) {
+        const k = key.toLowerCase();
+        if (k.includes('batch') || k.includes('join') || k.includes('year')) {
+          val = member[key];
+          break;
+        }
+      }
+      if (!val) return 9999;
+      
+      const matches = String(val).match(/\d{4}/g);
+      if (matches && matches.length > 0) {
+        return parseInt(matches[matches.length - 1], 10);
+      }
+      return 9999;
     };
     
     const batchA = getBatchNum(a);
