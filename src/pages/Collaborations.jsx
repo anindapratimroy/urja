@@ -6,8 +6,8 @@ const Collaborations = () => {
   const { data, error } = useGoogleAppsScript();
 
   if (error) return (
-    <div className="loading-screen">
-      <p style={{ color: 'var(--text-muted)' }}>Unable to load data. Please check back later.</p>
+    <div className="min-h-[60vh] flex flex-col items-center justify-center gap-4 text-slate-500">
+      <p>Unable to load data. Please check back later.</p>
     </div>
   );
 
@@ -29,56 +29,58 @@ const Collaborations = () => {
   });
 
   return (
-    <div className="collaborations-page">
-      <div className="page-hero collab-hero">
-        <div className="hero-background-icons">
-          <Globe size={400} strokeWidth={0.5} className="bg-globe" />
+    <div className="w-full">
+      <div className="relative py-24 md:py-32 bg-[radial-gradient(circle_at_80%_20%,rgba(59,130,246,0.1)_0%,transparent_50%)] border-b border-white/5 mb-8 md:mb-12 text-center md:text-left px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
+        <div className="absolute -right-[5%] -top-[20%] text-blue-500/[0.03] pointer-events-none">
+          <Globe size={400} strokeWidth={0.5} className="animate-[spin_60s_linear_infinite]" />
         </div>
-        <div className="container relative" style={{ zIndex: 1 }}>
-          <span className="section-eyebrow">Global Network</span>
-          <h1>Research <span className="text-gradient">Collaborations</span></h1>
-          <p className="page-hero-desc">
+        <div className="relative z-10">
+          <span className="inline-block text-xs font-bold tracking-[0.15em] uppercase text-accent-cyan mb-4">Global Network</span>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl mb-4">Research <span className="text-gradient">Collaborations</span></h1>
+          <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto md:mx-0 m-0 leading-relaxed">
             URJA Lab maintains active collaborations with leading research institutes,
             observatories, and universities around the world.
           </p>
         </div>
       </div>
 
-      <div className="container page-body">
+      <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-24">
         {collaborations.length > 0 ? (
-          <div className="collaborations-list">
+          <div className="flex flex-col gap-12 md:gap-16">
             {sortedCountries.map(country => (
-              <div key={country} className="collab-country-group">
-                <div className="country-header">
-                  <MapPin size={22} className="country-icon" />
-                  <h2>{country}</h2>
-                  <div className="country-badge">{groupedCollabs[country].length}</div>
+              <div key={country} className="flex flex-col">
+                <div className="flex items-center gap-3 mb-8 pb-4 border-b border-white/10 mt-10 md:mt-16 first:mt-0">
+                  <MapPin size={24} className="text-accent-blue-light" />
+                  <h2 className="text-2xl md:text-3xl m-0 tracking-wide">{country}</h2>
+                  <div className="bg-accent-blue/15 text-accent-cyan border border-accent-blue/30 rounded-full px-3 py-1 text-sm font-bold font-space ml-2">
+                    {groupedCollabs[country].length}
+                  </div>
                 </div>
                 
-                <div className="grid grid-cols-2 gap-5">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
                   {groupedCollabs[country].map((collab, index) => (
-                    <div key={index} className="glass-card collab-card">
-                      <div className="collab-icon-wrapper">
-                        <div className="collab-icon">
-                          <User size={22} color="var(--accent-cyan)" />
+                    <div key={index} className="glass-card flex flex-col sm:flex-row items-start gap-5 md:gap-6 p-6 md:p-8 bg-slate-900/40 hover:bg-slate-800/60 hover:-translate-y-1.5 transition-all duration-400 group relative">
+                      <div className="shrink-0 relative">
+                        <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-blue-500/10 to-emerald-500/5 border border-accent-blue/20 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-105 group-hover:-rotate-3 group-hover:border-accent-blue/50">
+                          <User size={24} className="text-accent-cyan" />
                         </div>
                       </div>
                       
-                      <div className="collab-body">
-                        <h4 className="collab-name">{collab.name || 'Collaborator'}</h4>
-                        {collab.type && <p className="collab-pi">{collab.type}</p>}
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-lg md:text-xl font-semibold mb-1 text-white truncate">{collab.name || 'Collaborator'}</h4>
+                        {collab.type && <p className="text-sm md:text-base font-medium text-accent-cyan mb-3">{collab.type}</p>}
                         
                         {collab.affiliation && (
-                          <p className="collab-affiliation">
-                            <Building2 size={13} /> 
+                          <div className="flex items-start gap-2 text-sm text-slate-400 mb-2 leading-relaxed">
+                            <Building2 size={16} className="shrink-0 mt-0.5 text-slate-500" /> 
                             <span>{collab.affiliation}</span>
-                          </p>
+                          </div>
                         )}
                         
                         {collab.area && (
-                          <div className="collab-area-wrapper">
-                            <span className="area-label">Research Area</span>
-                            <p className="collab-area">{collab.area}</p>
+                          <div className="mt-4 pt-3 border-t border-dashed border-white/10">
+                            <span className="block text-xs uppercase text-slate-500 tracking-widest mb-1.5">Research Area</span>
+                            <p className="text-sm md:text-base text-slate-400 m-0 leading-relaxed">{collab.area}</p>
                           </div>
                         )}
                       </div>
@@ -88,7 +90,7 @@ const Collaborations = () => {
                           href={collab.website.startsWith('http') ? collab.website : (collab.website.toLowerCase() === 'website' ? '#' : `https://${collab.website}`)} 
                           target="_blank" 
                           rel="noopener noreferrer" 
-                          className="collab-link"
+                          className="shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-lg border border-white/10 bg-white/[0.02] text-slate-500 flex items-center justify-center transition-all hover:text-accent-cyan hover:border-accent-blue/40 hover:bg-accent-blue/10 hover:-translate-y-0.5 absolute top-6 right-6 sm:relative sm:top-0 sm:right-0"
                           title="Visit Website"
                           onClick={(e) => {
                             if(collab.website.toLowerCase() === 'website') {
@@ -97,7 +99,7 @@ const Collaborations = () => {
                             }
                           }}
                         >
-                          <ExternalLink size={24} />
+                          <ExternalLink size={20} />
                         </a>
                       )}
                     </div>
@@ -107,188 +109,15 @@ const Collaborations = () => {
             ))}
           </div>
         ) : (
-          <div className="glass-card text-center empty-collab">
-            <Network size={52} color="var(--text-muted)" />
-            <h3 style={{ color: 'var(--text-secondary)', marginTop: '1.5rem' }}>Collaborations Updating</h3>
-            <p style={{ color: 'var(--text-muted)', maxWidth: '500px', margin: '0.5rem auto 0' }}>
+          <div className="glass-card text-center py-24 flex flex-col items-center">
+            <Network size={64} className="text-slate-600 mb-6" />
+            <h3 className="text-2xl text-slate-400 mb-2">Collaborations Updating</h3>
+            <p className="text-slate-500 max-w-lg m-0">
               Our network of global research partnerships will be listed here once the database is synchronized.
             </p>
           </div>
         )}
       </div>
-
-      <style>{`
-        .collab-hero {
-          padding: 6rem 0 4rem;
-          background: radial-gradient(circle at 80% 20%, rgba(59,130,246,0.1) 0%, transparent 50%);
-          border-bottom: 1px solid var(--glass-border);
-          margin-bottom: 2rem;
-          position: relative;
-          overflow: hidden;
-        }
-        .hero-background-icons {
-          position: absolute;
-          right: -5%;
-          top: -20%;
-          color: rgba(59,130,246,0.03);
-          pointer-events: none;
-        }
-        .bg-globe {
-          animation: slowSpin 60s linear infinite;
-        }
-        @keyframes slowSpin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-
-        .page-hero h1 { margin-bottom: 0.75rem; font-size: clamp(2.5rem, 5vw, 3.5rem); }
-        .page-hero-desc { font-size: 1.15rem; color: var(--text-secondary); max-width: 560px; margin: 0; line-height: 1.6; }
-        
-        .page-body { padding-bottom: 6rem; }
-
-        .country-header {
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-          margin: 4rem 0 2rem;
-          padding-bottom: 1rem;
-          border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        .country-header h2 {
-          margin: 0;
-          font-size: 1.6rem;
-          color: var(--text-primary);
-          letter-spacing: 0.02em;
-        }
-        .country-icon {
-          color: var(--accent-blue-light);
-        }
-        .country-badge {
-          background: rgba(59,130,246,0.15);
-          color: var(--accent-cyan);
-          border: 1px solid rgba(59,130,246,0.3);
-          border-radius: 100px;
-          padding: 0.1rem 0.6rem;
-          font-size: 0.8rem;
-          font-weight: 600;
-          margin-left: 0.5rem;
-        }
-
-        .collab-card {
-          display: flex;
-          align-items: flex-start;
-          gap: 1.25rem;
-          padding: 1.75rem;
-          position: relative;
-          background: rgba(20, 25, 40, 0.4);
-          transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-          border: 1px solid rgba(255,255,255,0.03);
-        }
-        .collab-card:hover {
-          transform: translateY(-6px);
-          background: rgba(30, 40, 60, 0.6);
-          border-color: rgba(59, 130, 246, 0.4);
-          box-shadow: 0 12px 30px -10px rgba(59, 130, 246, 0.15);
-        }
-
-        .collab-icon-wrapper {
-          position: relative;
-        }
-        .collab-icon {
-          flex-shrink: 0;
-          width: 50px; height: 50px;
-          background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(16,185,129,0.05));
-          border: 1px solid rgba(59,130,246,0.2);
-          border-radius: 12px;
-          display: flex; align-items: center; justify-content: center;
-          transition: transform 0.3s ease;
-        }
-        .collab-card:hover .collab-icon {
-          transform: scale(1.05) rotate(-5deg);
-          border-color: rgba(59,130,246,0.5);
-        }
-
-        .collab-body { flex: 1; min-width: 0; }
-        .collab-name { 
-          font-size: 1.25rem; 
-          margin-bottom: 0.2rem; 
-          color: var(--text-primary);
-        }
-        .collab-pi { 
-          font-size: 0.95rem; 
-          color: var(--accent-cyan); 
-          font-weight: 500; 
-          margin-bottom: 0.75rem;
-        }
-        
-        .collab-affiliation {
-          display: flex; align-items: flex-start; gap: 0.4rem;
-          font-size: 0.95rem; color: var(--text-secondary);
-          margin-bottom: 0.5rem;
-          line-height: 1.4;
-        }
-        .collab-affiliation svg {
-          flex-shrink: 0;
-          margin-top: 0.15rem;
-          color: var(--text-muted);
-        }
-        
-        .collab-area-wrapper {
-          margin-top: 1rem;
-          padding-top: 0.75rem;
-          border-top: 1px dashed rgba(255,255,255,0.08);
-        }
-        .area-label {
-          display: block;
-          font-size: 0.75rem; 
-          text-transform: uppercase; 
-          color: var(--text-muted); 
-          letter-spacing: 0.08em;
-          margin-bottom: 0.3rem;
-        }
-        .collab-area { 
-          font-size: 1rem; 
-          color: var(--text-secondary); 
-          line-height: 1.5;
-          margin: 0;
-        }
-        
-        .collab-link {
-          flex-shrink: 0;
-          color: var(--text-muted);
-          width: 50px; height: 50px;
-          border-radius: 8px;
-          border: 1px solid var(--glass-border);
-          display: flex; align-items: center; justify-content: center;
-          transition: all 0.3s ease;
-          background: rgba(255,255,255,0.02);
-        }
-        .collab-link:hover {
-          color: var(--accent-cyan);
-          border-color: rgba(59,130,246,0.4);
-          background: rgba(59,130,246,0.1);
-          transform: translateY(-2px);
-        }
-
-        .empty-collab {
-          padding: 6rem 2rem;
-          display: flex; flex-direction: column; align-items: center;
-        }
-
-        .loading-screen {
-          min-height: 60vh;
-          display: flex; flex-direction: column;
-          align-items: center; justify-content: center;
-          gap: 1rem; color: var(--text-muted);
-        }
-
-        .section-eyebrow {
-          display: inline-block;
-          font-size: 0.8rem; font-weight: 700;
-          letter-spacing: 0.15em; text-transform: uppercase;
-          color: var(--accent-cyan); margin-bottom: 1rem;
-        }
-      `}</style>
     </div>
   );
 };

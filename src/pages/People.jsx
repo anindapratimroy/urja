@@ -11,10 +11,9 @@ const People = () => {
   const { data, error } = useGoogleAppsScript();
   const [selectedImage, setSelectedImage] = useState(null);
 
-
   if (error) return (
-    <div className="loading-screen">
-      <p style={{ color: 'var(--text-muted)' }}>Unable to load data. Please check back later.</p>
+    <div className="min-h-[60vh] flex flex-col items-center justify-center gap-4 text-slate-500">
+      <p>Unable to load data. Please check back later.</p>
     </div>
   );
 
@@ -71,52 +70,51 @@ const People = () => {
   });
 
   const MemberCard = ({ member }) => (
-    <div className="glass-card member-card">
-      <div className="member-avatar">
+    <div className="glass-card flex flex-col items-center text-center p-6 md:p-8 hover:border-accent-blue/30 group transition-colors">
+      <div className="w-28 h-28 md:w-36 md:h-36 rounded-2xl border-2 border-accent-blue/30 bg-accent-blue/5 flex items-center justify-center mb-5 overflow-hidden shadow-lg group-hover:border-accent-blue-light/50 transition-colors">
         {getPhoto(member)
           ? <img 
               src={getPhoto(member)} 
               alt={member.name} 
-              className="avatar-img" 
+              className="w-full h-full object-cover cursor-pointer group-hover:scale-105 transition-transform duration-300" 
               onClick={() => setSelectedImage(getPhoto(member))}
-              style={{ cursor: 'pointer' }}
             />
-          : <User size={32} color="var(--accent-cyan)" />
+          : <User size={36} className="text-accent-cyan" />
         }
       </div>
-      <div className="member-info" style={{ width: '100%' }}>
-        <h4 className="member-name">{member.name || '—'}</h4>
-        <p className="member-role text-gradient" style={{ marginBottom: member.research ? '0.75rem' : '1rem' }}>{member.role || 'Researcher'}</p>
+      <div className="w-full">
+        <h4 className="text-lg md:text-xl font-semibold mb-1 group-hover:text-accent-cyan transition-colors">{member.name || '—'}</h4>
+        <p className="text-sm md:text-base font-bold text-gradient mb-3 md:mb-4">{member.role || 'Researcher'}</p>
         
         {member.research && (
-          <div className="member-research">
-            <span style={{ display: 'block', fontSize: '0.75rem', color: 'var(--accent-cyan)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.2rem' }}>Research Interests</span>
+          <div className="text-sm text-slate-400 mb-4 px-2 text-center leading-relaxed">
+            <span className="block text-xs text-accent-cyan uppercase tracking-widest mb-1.5">Research Interests</span>
             <p>{member.research}</p>
           </div>
         )}
         
         {member.email && (
-          <div className="member-email-box">
-            <Mail size={14} style={{ color: 'var(--text-secondary)' }} />
-            <span className="email-text">
+          <div className="flex items-center justify-center gap-2 bg-white/[0.03] border border-white/10 px-3 py-1.5 rounded-lg mx-auto w-fit transition-colors hover:border-accent-blue-light/50 group/email">
+            <Mail size={14} className="text-slate-400 group-hover/email:text-accent-blue-light transition-colors" />
+            <span className="text-xs md:text-sm text-slate-400 group-hover/email:text-accent-blue-light transition-colors">
               {member.email.includes('@') ? member.email.split('@')[0] : member.email}
             </span>
           </div>
         )}
 
-        <div className="member-links" style={{ marginTop: '1.25rem' }}>
+        <div className="flex justify-center gap-3 mt-5">
           {member.linkedin && (
-            <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="icon-link" title="LinkedIn">
+            <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-md border border-white/10 text-slate-400 flex items-center justify-center hover:text-accent-cyan hover:bg-accent-blue/10 hover:border-accent-blue/40 transition-all" title="LinkedIn">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
             </a>
           )}
           {member.page && (
-            <a href={member.page} target="_blank" rel="noopener noreferrer" className="icon-link" title="Personal Website">
+            <a href={member.page} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-md border border-white/10 text-slate-400 flex items-center justify-center hover:text-accent-cyan hover:bg-accent-blue/10 hover:border-accent-blue/40 transition-all" title="Personal Website">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
             </a>
           )}
           {(member.googleScholar || member.scholar || member.google_scholar) && (
-            <a href={member.googleScholar || member.scholar || member.google_scholar} target="_blank" rel="noopener noreferrer" className="icon-link" title="Google Scholar">
+            <a href={member.googleScholar || member.scholar || member.google_scholar} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-md border border-white/10 text-slate-400 flex items-center justify-center hover:text-accent-cyan hover:bg-accent-blue/10 hover:border-accent-blue/40 transition-all" title="Google Scholar">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
             </a>
           )}
@@ -126,37 +124,39 @@ const People = () => {
   );
 
   const EmptyState = ({ label }) => (
-    <div className="empty-state-card glass-card text-center" style={{ gridColumn: '1 / -1' }}>
-      <div className="empty-icon"><User size={36} color="var(--text-muted)" /></div>
-      <h4 style={{ color: 'var(--text-muted)' }}>{label} data updating soon</h4>
-      <p style={{ color: 'var(--text-muted)', marginBottom: 0 }}>
+    <div className="glass-card text-center col-span-full py-16">
+      <div className="flex justify-center mb-4"><User size={42} className="text-slate-600" /></div>
+      <h4 className="text-xl text-slate-400 mb-2">{label} data updating soon</h4>
+      <p className="text-slate-500 max-w-md mx-auto m-0">
         Member information will appear here once published to the Google Sheet.
       </p>
     </div>
   );
 
   return (
-    <div className="people-page">
+    <div className="w-full">
       {/* Page Header */}
-      <div className="page-hero">
-        <div className="container">
-          <span className="section-eyebrow">The Lab</span>
-          <h1>Our <span className="text-gradient">Team</span></h1>
-          <p className="page-hero-desc">
-            Meet the researchers, students, and collaborators driving discovery at URJA Lab.
-          </p>
-        </div>
+      <div className="py-20 md:py-28 bg-gradient-to-b from-blue-500/5 to-transparent border-b border-white/5 mb-12 md:mb-16 text-center md:text-left px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <span className="inline-block text-xs font-bold tracking-[0.12em] uppercase text-accent-cyan mb-3">The Lab</span>
+        <h1 className="text-4xl md:text-5xl lg:text-6xl mb-4">Our <span className="text-gradient">Team</span></h1>
+        <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto md:mx-0 m-0">
+          Meet the researchers, students, and collaborators driving discovery at URJA Lab.
+        </p>
       </div>
 
-      <div className="container page-body">
+      <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-20">
         {/* Active Members */}
-        <section className="team-section">
-          <div className="team-section-header">
-            <h2>Active Members</h2>
-            <div className="count-badge">{activeMembers.length}</div>
-            <span style={{ marginLeft: 'auto', fontSize: '1rem', fontWeight: '500', color: 'var(--text-secondary)', letterSpacing: '0.02em' }}>* add @iiti.ac.in for the emails</span>
+        <section className="mb-20">
+          <div className="flex flex-col md:flex-row items-center gap-4 mb-8 pb-4 border-b border-white/10">
+            <h2 className="text-2xl md:text-3xl m-0">Active Members</h2>
+            <div className="bg-accent-blue/15 text-accent-cyan border border-accent-blue/30 rounded-full px-3 py-1 text-sm font-bold font-space">
+              {activeMembers.length}
+            </div>
+            <span className="md:ml-auto text-sm md:text-base font-medium text-slate-400 tracking-wide mt-2 md:mt-0 text-center md:text-left">
+              * add @iiti.ac.in for the emails
+            </span>
           </div>
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {sortedActiveMembers.length > 0
               ? sortedActiveMembers.map((m, i) => <MemberCard key={i} member={m} />)
               : <EmptyState label="Active members" />
@@ -165,13 +165,17 @@ const People = () => {
         </section>
 
         {/* Alumni */}
-        <section className="team-section" style={{ marginTop: '4rem' }}>
-          <div className="team-section-header">
-            <h2>Alumni</h2>
-            <div className="count-badge">{alumniMembers.length}</div>
-            <span style={{ marginLeft: 'auto', fontSize: '1rem', fontWeight: '500', color: 'var(--text-secondary)', letterSpacing: '0.02em' }}>* add @iiti.ac.in for the emails</span>
+        <section>
+          <div className="flex flex-col md:flex-row items-center gap-4 mb-8 pb-4 border-b border-white/10">
+            <h2 className="text-2xl md:text-3xl m-0">Alumni</h2>
+            <div className="bg-accent-blue/15 text-accent-cyan border border-accent-blue/30 rounded-full px-3 py-1 text-sm font-bold font-space">
+              {alumniMembers.length}
+            </div>
+            <span className="md:ml-auto text-sm md:text-base font-medium text-slate-400 tracking-wide mt-2 md:mt-0 text-center md:text-left">
+              * add @iiti.ac.in for the emails
+            </span>
           </div>
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {sortedAlumniMembers.length > 0
               ? sortedAlumniMembers.map((m, i) => <MemberCard key={i} member={m} />)
               : <EmptyState label="Alumni" />
@@ -182,207 +186,16 @@ const People = () => {
 
       {/* Full Screen Image Overlay via Portal */}
       {selectedImage && createPortal(
-        <div className="lightbox-overlay" onClick={() => setSelectedImage(null)}>
-          <button className="lightbox-close" onClick={() => setSelectedImage(null)}>
+        <div className="fixed inset-0 w-screen h-screen bg-navy/95 backdrop-blur-xl z-[999999] flex items-center justify-center cursor-pointer p-4 md:p-8 animate-in fade-in duration-200" onClick={() => setSelectedImage(null)}>
+          <button className="absolute top-6 right-6 md:top-8 md:right-8 bg-white/10 border border-white/20 text-white w-12 h-12 rounded-full flex items-center justify-center cursor-pointer transition-all hover:bg-red-500/20 hover:border-red-500/50 hover:text-red-500 hover:scale-110 z-[1000000]" onClick={() => setSelectedImage(null)}>
             <X size={28} />
           </button>
-          <div className="lightbox-image-container" onClick={(e) => e.stopPropagation()}>
-            <img src={selectedImage} alt="Full screen" className="lightbox-image" />
+          <div className="relative max-w-full max-h-full flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
+            <img src={selectedImage} alt="Full screen" className="max-w-full max-h-[90vh] rounded-2xl shadow-[0_0_40px_rgba(0,0,0,0.5),0_0_20px_rgba(59,130,246,0.2)] object-contain animate-in zoom-in-95 duration-300 cursor-default" />
           </div>
         </div>,
         document.body
       )}
-
-      <style>{`
-        .page-hero {
-          padding: 5rem 0 3rem;
-          background: linear-gradient(to bottom, rgba(59,130,246,0.05), transparent);
-          border-bottom: 1px solid var(--glass-border);
-          margin-bottom: 4rem;
-        }
-        .page-hero h1 { margin-bottom: 0.75rem; font-size: clamp(2rem, 5vw, 3rem); }
-        .page-hero-desc { font-size: 1.15rem; color: var(--text-secondary); max-width: 560px; margin: 0; }
-        .page-body { padding-bottom: 5rem; }
-
-        .team-section-header {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          margin-bottom: 2rem;
-          padding-bottom: 1rem;
-          border-bottom: 1px solid var(--glass-border);
-        }
-        .team-section-header h2 { margin-bottom: 0; font-size: 1.6rem; }
-        .count-badge {
-          background: rgba(59,130,246,0.15);
-          color: var(--accent-cyan);
-          border: 1px solid rgba(59,130,246,0.3);
-          border-radius: 100px;
-          padding: 0.1rem 0.75rem;
-          font-size: 0.85rem;
-          font-weight: 600;
-          font-family: 'Space Grotesk', sans-serif;
-        }
-
-        .member-card {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          text-align: center;
-          padding: 2rem 1.5rem;
-          gap: 0;
-        }
-        .member-avatar {
-          width: 140px; height: 140px;
-          border-radius: 16px;
-          border: 2px solid rgba(59,130,246,0.3);
-          background: rgba(59,130,246,0.06);
-          display: flex; align-items: center; justify-content: center;
-          margin-bottom: 1.25rem;
-          overflow: hidden;
-        }
-        .avatar-img { width: 100%; height: 100%; object-fit: cover; }
-        .member-name { font-size: 1.05rem; margin-bottom: 0.3rem; }
-        .member-role { font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem; }
-        .member-topic { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.75rem; line-height: 1.4; }
-        .member-links { display: flex; gap: 0.75rem; justify-content: center; }
-        .icon-link {
-          color: var(--text-muted);
-          display: flex; align-items: center; justify-content: center;
-          width: 32px; height: 32px;
-          border-radius: 6px;
-          border: 1px solid var(--glass-border);
-          transition: all 0.2s ease;
-        }
-        .icon-link:hover {
-          color: var(--accent-cyan);
-          border-color: rgba(59,130,246,0.4);
-          background: rgba(59,130,246,0.08);
-        }
-        .member-research {
-          font-size: 0.85rem;
-          color: var(--text-secondary);
-          margin-bottom: 1rem;
-          line-height: 1.4;
-          text-align: center;
-          padding: 0 0.5rem;
-        }
-        .member-email-box {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 0.5rem;
-          background: rgba(255,255,255,0.03);
-          border: 1px solid var(--glass-border);
-          padding: 0.4rem 0.75rem;
-          border-radius: 8px;
-          margin: 0 auto;
-          width: fit-content;
-        }
-        .email-text {
-          font-size: 0.8rem;
-          color: var(--text-secondary);
-          text-decoration: none;
-          transition: color 0.2s;
-        }
-        .member-email-box:hover .email-text, .member-email-box:hover svg {
-          color: var(--accent-blue-light) !important;
-        }
-
-        .empty-state-card { padding: 3rem; }
-        .empty-icon { margin-bottom: 1rem; }
-
-        .loading-screen {
-          min-height: 60vh;
-          display: flex; flex-direction: column;
-          align-items: center; justify-content: center;
-          gap: 1rem;
-          color: var(--text-muted);
-        }
-        .spinner { animation: spin 1.2s linear infinite; color: var(--accent-cyan); }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-        .section-eyebrow {
-          display: inline-block;
-          font-size: 0.78rem;
-          font-weight: 700;
-          letter-spacing: 0.12em;
-          text-transform: uppercase;
-          color: var(--accent-cyan);
-          margin-bottom: 0.75rem;
-        }
-
-        /* Lightbox Styles */
-        .lightbox-overlay {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100vw;
-          height: 100vh;
-          background: rgba(2, 6, 23, 0.95);
-          backdrop-filter: blur(12px);
-          z-index: 999999;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-          animation: fadeIn 0.2s ease-out;
-          padding: 2rem;
-        }
-        
-        .lightbox-image-container {
-          position: relative;
-          max-width: 100%;
-          max-height: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .lightbox-image {
-          max-width: 100%;
-          max-height: 90vh;
-          border-radius: 12px;
-          box-shadow: 0 0 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(59, 130, 246, 0.2);
-          object-fit: contain;
-          cursor: default;
-          animation: scaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .lightbox-close {
-          position: absolute;
-          top: 2rem;
-          right: 2rem;
-          background: rgba(255, 255, 255, 0.1);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          color: white;
-          width: 48px;
-          height: 48px;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-          transition: all 0.2s ease;
-          z-index: 1000000;
-        }
-
-        .lightbox-close:hover {
-          background: rgba(239, 68, 68, 0.2);
-          border-color: rgba(239, 68, 68, 0.5);
-          color: #ef4444;
-          transform: scale(1.1);
-        }
-
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-
-        @keyframes scaleUp {
-          from { transform: scale(0.8); opacity: 0; }
-          to { transform: scale(1); opacity: 1; }
-        }
-      `}</style>
     </div>
   );
 };

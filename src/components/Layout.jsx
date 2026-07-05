@@ -5,30 +5,17 @@ import ParticleBackground from './ParticleBackground';
 
 const Layout = ({ children }) => {
   return (
-    <div className="layout-container">
+    <div className="flex flex-col min-h-screen relative">
       {/* Animated constellation background */}
       <ParticleBackground />
 
       <Navbar />
 
-      <main className="main-content page-transition">
+      <main className="flex-1 pt-[80px] animate-in fade-in slide-in-from-bottom-3 duration-500 ease-out pb-20">
         {children}
       </main>
 
       <Footer />
-
-      <style>{`
-        .layout-container {
-          display: flex;
-          flex-direction: column;
-          min-height: 100vh;
-          position: relative;
-        }
-        .main-content {
-          flex: 1;
-          padding-top: 80px;
-        }
-      `}</style>
     </div>
   );
 };
