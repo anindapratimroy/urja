@@ -50,9 +50,16 @@ const People = () => {
     const pB = getRolePriority(b.role);
     if (pA !== pB) return pA - pB;
     
-    const batchA = String(a.batch || 'zzzz').toLowerCase();
-    const batchB = String(b.batch || 'zzzz').toLowerCase();
-    if (batchA !== batchB) return batchA.localeCompare(batchB);
+    const getBatchNum = (member) => {
+      const val = member.batch || member['joining year'] || member.joiningYear || member.joining_year || member.year;
+      if (!val) return 9999999999;
+      const num = parseInt(String(val).replace(/\D/g, ''));
+      return isNaN(num) ? 9999999999 : num;
+    };
+    
+    const batchA = getBatchNum(a);
+    const batchB = getBatchNum(b);
+    if (batchA !== batchB) return batchA - batchB;
     
     return (a.name || '').localeCompare(b.name || '');
   });
@@ -62,9 +69,16 @@ const People = () => {
     const pB = getRolePriority(b.role);
     if (pA !== pB) return pA - pB;
     
-    const batchA = String(a.batch || 'zzzz').toLowerCase();
-    const batchB = String(b.batch || 'zzzz').toLowerCase();
-    if (batchA !== batchB) return batchA.localeCompare(batchB);
+    const getBatchNum = (member) => {
+      const val = member.batch || member['joining year'] || member.joiningYear || member.joining_year || member.year;
+      if (!val) return 9999999999;
+      const num = parseInt(String(val).replace(/\D/g, ''));
+      return isNaN(num) ? 9999999999 : num;
+    };
+    
+    const batchA = getBatchNum(a);
+    const batchB = getBatchNum(b);
+    if (batchA !== batchB) return batchA - batchB;
     
     return (a.name || '').localeCompare(b.name || '');
   });
