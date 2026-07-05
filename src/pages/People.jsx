@@ -59,6 +59,14 @@ const People = () => {
           break;
         }
       }
+      if (!val && member.email) {
+        const emailMatch = String(member.email).match(/^[a-zA-Z]+(\d{2})/);
+        if (emailMatch) {
+          const yy = parseInt(emailMatch[1], 10);
+          return yy > 50 ? 1900 + yy : 2000 + yy;
+        }
+      }
+      
       if (!val) return 9999;
       
       // Extract all 4-digit numbers (e.g. "2026/2021" -> ["2026", "2021"])
@@ -91,6 +99,14 @@ const People = () => {
           break;
         }
       }
+      if (!val && member.email) {
+        const emailMatch = String(member.email).match(/^[a-zA-Z]+(\d{2})/);
+        if (emailMatch) {
+          const yy = parseInt(emailMatch[1], 10);
+          return yy > 50 ? 1900 + yy : 2000 + yy;
+        }
+      }
+      
       if (!val) return 9999;
       
       const matches = String(val).match(/\d{4}/g);
