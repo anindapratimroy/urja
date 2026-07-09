@@ -98,19 +98,19 @@ const Footer = () => {
 
         {/* Bottom */}
         <div className="border-t border-white/5 py-6 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
-          <p className="text-sm text-slate-400 m-0">
+          <p className="text-base md:text-lg text-slate-400 m-0">
             &copy; {new Date().getFullYear()} URJA Lab & Aninda Pratim Roy, IIT Indore. All rights reserved.
           </p>
-          <p className="text-sm text-slate-400 m-0 flex items-center gap-1">
+          <p className="text-base md:text-lg text-slate-400 m-0 flex items-center gap-1">
             Website created by{' '}
             <a
               href="https://www.linkedin.com/in/aninda-pratim-roy/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-accent-blue-light font-semibold hover:text-white hover:drop-shadow-[0_0_12px_rgba(96,165,250,0.4)] transition-all flex items-center gap-1 ml-1"
+              className="text-accent-blue-light font-semibold hover:text-white hover:drop-shadow-[0_0_12px_rgba(96,165,250,0.4)] transition-all flex items-center gap-1.5 ml-1"
             >
               Aninda Pratim Roy
-              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
             </a>
           </p>
         </div>
