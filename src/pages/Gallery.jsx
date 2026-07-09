@@ -19,15 +19,15 @@ const Gallery = () => {
 
   return (
     <div className="w-full">
-      <div className="py-20 md:py-28 bg-gradient-to-b from-blue-500/5 to-transparent border-b border-white/5 mb-12 md:mb-16 text-center md:text-left px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <span className="inline-block text-xs font-bold tracking-[0.12em] uppercase text-accent-cyan mb-3">Visuals</span>
+      <div className="pt-16 md:pt-24 pb-6 md:pb-8 mb-6 md:mb-8 text-center md:text-left px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <span className="inline-block text-sm font-bold tracking-[0.12em] uppercase text-accent-cyan mb-3">Visuals</span>
         <h1 className="text-4xl md:text-5xl lg:text-6xl mb-4">Our <span className="text-gradient">Gallery</span></h1>
-        <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto md:mx-0 m-0">
+        <p className="text-xl md:text-2xl text-slate-400 max-w-2xl mx-auto md:mx-0 m-0">
           A glimpse into our lab life, events, and research activities.
         </p>
       </div>
 
-      <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-20">
+      <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-8 md:pb-12">
         {images.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
             {images.map((img, i) => (

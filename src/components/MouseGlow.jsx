@@ -65,14 +65,14 @@ const MouseGlow = () => {
           height: 360px;
           border-radius: 50%;
           transform: translate(-50%, -50%);
-          background: radial-gradient(circle, rgba(59,130,246,0.10) 0%, transparent 65%);
+          background: radial-gradient(circle, rgba(59,130,246,0.06) 0%, transparent 65%);
           z-index: 9998;
           transition: width 0.3s, height 0.3s, background 0.3s;
         }
         .cursor-glow.hovering {
           width: 220px;
           height: 220px;
-          background: radial-gradient(circle, rgba(139,92,246,0.14) 0%, transparent 65%);
+          background: radial-gradient(circle, rgba(139,92,246,0.08) 0%, transparent 65%);
         }
         .cursor-dot {
           position: fixed;
@@ -80,10 +80,10 @@ const MouseGlow = () => {
           width: 6px;
           height: 6px;
           border-radius: 50%;
-          background: rgba(96,165,250,0.9);
+          background: rgba(96,165,250,0.5);
           transform: translate(-50%, -50%);
           z-index: 9999;
-          box-shadow: 0 0 6px rgba(96,165,250,0.8);
+          box-shadow: 0 0 4px rgba(96,165,250,0.4);
         }
         @media (hover: none) {
           .cursor-glow, .cursor-dot { display: none; }

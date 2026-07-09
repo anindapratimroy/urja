@@ -7,15 +7,14 @@ import urjaLogo from '../assets/logo/urja_logo_processed.png';
 const Navbar = () => {
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
-  const [isLogoOpen, setIsLogoOpen] = useState(false);
   
   const navLinks = [
-    { name: 'Home', path: '/', icon: <Rocket size={18} /> },
-    { name: 'People', path: '/people', icon: <Users size={18} /> },
-    { name: 'Publications', path: '/publications', icon: <BookOpen size={18} /> },
-    { name: 'Opportunities', path: '/opportunities', icon: <Briefcase size={18} /> },
-    { name: 'Collaborations', path: '/collaborations', icon: <LinkIcon size={18} /> },
-    { name: 'Gallery', path: '/gallery', icon: <ImageIcon size={18} /> },
+    { name: 'Home', path: '/', icon: <Rocket size={20} /> },
+    { name: 'People', path: '/people', icon: <Users size={20} /> },
+    { name: 'Publications', path: '/publications', icon: <BookOpen size={20} /> },
+    { name: 'Opportunities', path: '/opportunities', icon: <Briefcase size={20} /> },
+    { name: 'Collaborations', path: '/collaborations', icon: <LinkIcon size={20} /> },
+    { name: 'Gallery', path: '/gallery', icon: <ImageIcon size={20} /> },
   ];
 
   const closeMenu = () => setIsOpen(false);
@@ -34,10 +33,6 @@ const Navbar = () => {
             src={urjaLogo} 
             alt="URJA Lab Logo" 
             className="h-10 md:h-12 w-auto drop-shadow-md transition-transform hover:scale-110" 
-            onClick={(e) => {
-              e.preventDefault();
-              setIsLogoOpen(true);
-            }}
           />
           <div className="flex items-center">
             <span className="text-gradient">URJA</span>
@@ -59,10 +54,10 @@ const Navbar = () => {
             <li key={link.path}>
               <Link 
                 to={link.path} 
-                className={`flex items-center gap-2 px-3 py-2 rounded-full text-sm font-medium transition-all ${
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-full text-base font-semibold transition-all ${
                   location.pathname === link.path 
                   ? 'text-white bg-accent-blue/15 border border-accent-blue/25 shadow-[0_4px_15px_rgba(59,130,246,0.15)]' 
-                  : 'text-slate-300 hover:text-white hover:bg-white/5 border border-transparent hover:-translate-y-0.5'
+                  : 'text-slate-200 hover:text-white hover:bg-white/10 border border-transparent hover:-translate-y-0.5'
                 }`}
               >
                 {link.icon}
@@ -95,27 +90,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Logo Lightbox */}
-      {isLogoOpen && createPortal(
-        <div 
-          className="fixed inset-0 z-[99999] bg-black/90 backdrop-blur-xl flex items-center justify-center cursor-pointer" 
-          onClick={() => setIsLogoOpen(false)}
-        >
-          <button 
-            className="absolute top-6 right-6 lg:top-8 lg:right-8 bg-white/10 border border-white/20 rounded-full w-12 h-12 flex items-center justify-center text-white hover:bg-white/20 hover:scale-110 transition-all" 
-            onClick={(e) => { e.stopPropagation(); setIsLogoOpen(false); }}
-          >
-            <X size={28} />
-          </button>
-          <img 
-            src={urjaLogo} 
-            alt="URJA Lab Logo Full" 
-            className="max-w-[90vw] max-h-[90vh] object-contain drop-shadow-[0_0_30px_rgba(255,255,255,0.4)] animate-in zoom-in duration-300 cursor-default" 
-            onClick={(e) => e.stopPropagation()} 
-          />
-        </div>,
-        document.body
-      )}
     </nav>
   );
 };

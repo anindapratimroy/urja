@@ -10,10 +10,13 @@
   --color-accent-blue: #3B82F6;
   --color-accent-blue-light: #60A5FA;
   --color-accent-violet: #8B5CF6;
-  --color-accent-cyan: #22d3ee;
+  --color-accent-cyan: #38bdf8;
 }
 
 @layer base {
+  html {
+    font-size: 112.5%; /* Scales base from 16px to 18px, increasing all text and rem spacing proportionately */
+  }
   body {
     background-color: var(--color-navy);
     color: #f1f5f9; /* slate-100 */
@@ -78,18 +81,21 @@
     gap: 0.5rem;
     padding: 0.75rem 1.5rem;
     font-family: var(--font-space);
-    font-size: 0.875rem;
+    font-size: 1rem;
     font-weight: 600;
-    color: white;
-    background-color: var(--color-accent-blue);
+    color: var(--color-accent-cyan);
+    background-color: rgba(59, 130, 246, 0.05);
+    border: 1px solid rgba(59, 130, 246, 0.25);
     border-radius: 0.5rem;
     transition: all 0.2s ease;
     white-space: nowrap;
   }
   .btn:hover {
-    background-color: #2563EB; /* blue-600 */
+    background-color: rgba(59, 130, 246, 0.2);
+    border-color: rgba(96, 165, 250, 0.4);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 20px rgba(59, 130, 246, 0.2);
+    color: #ffffff;
   }
   .btn:active {
     transform: translateY(0);

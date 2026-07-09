@@ -3,29 +3,51 @@ import { Link } from 'react-router-dom';
 import Tilt from 'react-parallax-tilt';
 import {
   ArrowRight, MapPin, BookOpen, Users, Briefcase, Globe,
-  Atom, Zap, Eye, Star
+  Atom, Zap, Eye, Star, Activity, Cpu, Radio
 } from 'lucide-react';
 
 const researchAreas = [
   {
-    icon: <Atom size={28} className="text-accent-blue-light" />,
-    title: 'Relativistic Jets',
-    desc: 'Studying ultra-relativistic plasma jets ejected from supermassive black holes at velocities approaching the speed of light.'
-  },
-  {
     icon: <Zap size={28} className="text-accent-blue-light" />,
-    title: 'High-Energy Astrophysics',
-    desc: 'Investigating the physical mechanisms behind extreme gamma-ray and X-ray emissions from active galactic nuclei (AGN).'
+    title: 'Gamma-Ray Bursts',
+    data: 'Fermi, Konus Wind, Swift Telescope, CGRO, AstroSAT, GMRT',
+    desc: 'Investigation of individual and population study of GRB jets in the prompt and afterglow emission.'
   },
   {
-    icon: <Eye size={28} className="text-accent-blue-light" />,
-    title: 'Multi-Wavelength Observations',
-    desc: 'Combining data from radio, optical, X-ray, and gamma-ray telescopes for comprehensive source characterization.'
+    icon: <Atom size={28} className="text-accent-blue-light" />,
+    title: 'Active Galactic Nucleus',
+    data: 'Fermi, Swift Telescope',
+    desc: 'Investigation of individual and population study of AGN jets using observations. We also do simulation to correlate observation features via simulation using PLUTO.'
   },
   {
     icon: <Star size={28} className="text-accent-blue-light" />,
-    title: 'Blazars & BL Lac Objects',
-    desc: 'Characterizing variability, spectral energy distributions, and jet physics of blazar populations.'
+    title: 'Massive Stars Birth & Death',
+    data: 'Fermi, Swift Telescope',
+    desc: 'Investigation of population study of GRB & supernovae jets in the prompt emission. We perform the simulation of collapse of supernovae and correlate it with the observation evidences from the Gamma-ray and X-ray data obtained from Fermi, Swift Telescope respectively.'
+  },
+  {
+    icon: <Activity size={28} className="text-accent-blue-light" />,
+    title: 'Solar Time Series Analysis',
+    data: 'Solar Digital Observatory, yearly averages sun spot SILSO data',
+    desc: 'Prediction of sun spots using simulations based on different machine learning techniques like GPR, ARIMA, etc.'
+  },
+  {
+    icon: <Cpu size={28} className="text-accent-blue-light" />,
+    title: 'Machine Learning Models',
+    data: 'Fermi-GBM Telescope',
+    desc: 'Investigation of population study of GRB jets in the prompt and afterglow emission. We did classification of GRBs in the prompt emission using Fermi-GBM data. We also created the gap reconstruction technique using different models like PINN, Siamese image auto-encoder, ReFANN, Quantile Regression etc. to predict the gaps in the lightcurve of X-ray GRBs from the Swift archive.'
+  },
+  {
+    icon: <Eye size={28} className="text-accent-blue-light" />,
+    title: 'Detector development and Instrumentation',
+    data: 'Fermi, Telescope',
+    desc: 'Involved in the development of gamma-ray detectors to capture the extreme emissions from high-energy astrophysical sources, bridging observation and simulation to the instrumentation using GEANT4.'
+  },
+  {
+    icon: <Radio size={28} className="text-accent-blue-light" />,
+    title: 'Multi-messenger Astronomy',
+    data: 'Fermi, Konus Wind, Swift Telescope, CGRO, AstroSAT, GMRT',
+    desc: 'We investigate population study of astrophysical jets for different celestial events like GRBs, AGNs, merger events to do theoretical survey and identifying the electromagnetic counterpart along with the search of neutrino emission in the AGNs in not only from very high-energy domain but also in Optical to Radio observation.'
   },
 ];
 
@@ -47,23 +69,22 @@ const Home = () => {
           </h1>
           
           <p className="text-base sm:text-lg md:text-xl text-slate-300 max-w-2xl mb-10 leading-relaxed">
-            We probe the most energetic and exotic corners of the universe —
-            relativistic jets, supermassive black holes, and extreme high-energy astrophysical phenomena.
+            We probe the most energetic and exotic corners of the universe—from relativistic jets and supermassive black holes to cosmic rays and gamma-ray bursts—by seamlessly uniting cutting-edge simulations, deep-space observations, and the in-house development of next-generation gamma-ray detectors.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 w-full sm:w-auto">
             <a 
               href="#research" 
-              className="btn justify-center bg-gradient-to-br from-blue-500 to-blue-700 border border-blue-400/50 hover:from-blue-400 hover:to-blue-600 shadow-[0_4px_15px_rgba(59,130,246,0.25)] group"
+              className="btn px-8 py-3.5 md:py-4 text-base md:text-lg justify-center shadow-[0_4px_15px_rgba(59,130,246,0.25)] hover:shadow-[0_0_30px_rgba(59,130,246,0.6)] hover:bg-accent-blue/15 group hover:scale-110 active:scale-95 transition-all duration-300"
               onClick={(e) => {
                 e.preventDefault();
                 document.getElementById('research')?.scrollIntoView({ behavior: 'smooth' });
               }}
             >
               <span>Our Research</span>
-              <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+              <ArrowRight size={20} className="transition-transform group-hover:translate-x-1.5" />
             </a>
-            <Link to="/people" className="btn btn-outline justify-center backdrop-blur-md bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/30 text-white">
+            <Link to="/people" className="btn btn-outline px-8 py-3.5 md:py-4 text-base md:text-lg justify-center bg-white/5 border-white/10 hover:bg-white/15 hover:border-white/40 text-white hover:scale-110 active:scale-95 transition-all duration-300 hover:shadow-[0_0_30px_rgba(255,255,255,0.25)]">
               Meet the Team
             </Link>
           </div>
@@ -71,56 +92,26 @@ const Home = () => {
       </section>
 
       {/* ── About / PI ── */}
-      <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="text-center mb-10 md:mb-16">
-          <span className="inline-block text-xs font-bold tracking-[0.15em] uppercase text-accent-cyan mb-3">Principal Investigator</span>
-          <h2 className="text-3xl md:text-4xl">Dr. Amit Shukla</h2>
-        </div>
-        
-        <Tilt tiltMaxAngleX={2} tiltMaxAngleY={2} glareEnable={true} glareMaxOpacity={0.15} glareColor="#60A5FA" glarePosition="all" scale={1.01}>
-          <div className="glass-card flex flex-col md:flex-row gap-8 md:gap-12 items-center md:items-start text-center md:text-left">
-            <div className="relative shrink-0 mt-4 md:mt-0">
-              <div className="w-32 h-32 md:w-40 md:h-40 rounded-full border-2 border-accent-blue/40 flex items-center justify-center bg-accent-blue/10 relative z-10 shadow-[0_0_30px_rgba(59,130,246,0.15)]">
-                <span className="font-space text-4xl md:text-5xl font-bold text-accent-cyan">AS</span>
-              </div>
-              <div className="absolute -inset-4 rounded-full bg-[radial-gradient(circle,rgba(59,130,246,0.15),transparent_70%)] pointer-events-none" />
-            </div>
-            
-            <div className="flex-1">
-              <h3 className="text-2xl md:text-3xl mb-1">Dr. Amit Shukla</h3>
-              <p className="text-lg md:text-xl font-semibold text-gradient mb-2">Associate Professor</p>
-              <p className="text-sm md:text-base text-slate-400 mb-6">Dept. of Astronomy, Astrophysics &amp; Space Engineering · IIT Indore</p>
-              
-              <p className="text-slate-300 text-sm md:text-base leading-relaxed mb-6">
-                Dr. Shukla's research focuses on high-energy astrophysics with an emphasis on understanding
-                the physical processes driving ultra-relativistic jets in active galactic nuclei.
-                His work involves multi-wavelength observational campaigns and theoretical modelling
-                of blazar variability, emission mechanisms, and jet formation.
-              </p>
-              
-              <div className="flex flex-col md:flex-row items-center md:items-start gap-2 mb-8 text-sm text-slate-400">
-                <MapPin size={16} className="shrink-0 mt-0.5" />
-                <a 
-                  href="https://www.google.com/maps/search/?api=1&query=GWHF%2BF9C,+Indore,+Madhya+Pradesh+453552"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-accent-cyan transition-colors"
-                >
-                  POD 1E 402, IIT Indore, Simrol, Khandwa Road, Indore — 453552
-                </a>
-              </div>
-              
-              <div className="flex flex-col sm:flex-row justify-center md:justify-start gap-4">
-                <Link to="/pi" className="btn w-full sm:w-auto justify-center">Full Profile</Link>
-                <Link to="/collaborations" className="btn btn-outline w-full sm:w-auto justify-center">View Collaborations</Link>
-              </div>
-            </div>
+      <section className="py-6 md:py-10 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
+        <div className="glass-card flex flex-col text-center items-center !py-6 md:!py-8 !px-6">
+          <h3 className="text-2xl md:text-3xl mb-1">Dr. Amit Shukla</h3>
+          <p className="text-lg font-semibold text-gradient mb-1">Principal Investigator</p>
+          <p className="text-sm text-slate-400 mb-4">Department of Astronomy, Astrophysics & Space Engineering</p>
+          
+          <div className="flex items-center justify-center gap-2 mb-6 text-sm text-slate-400">
+            <MapPin size={16} className="text-accent-blue-light shrink-0" />
+            <span>POD 1D 512, IIT Indore, Simrol, Khandwa Road, Indore — 453552</span>
           </div>
-        </Tilt>
+          
+          <div className="flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto">
+            <Link to="/pi" className="btn justify-center">View Profile</Link>
+            <Link to="/collaborations" className="btn btn-outline justify-center">View Collaborations</Link>
+          </div>
+        </div>
       </section>
 
       {/* ── Research Focus Areas ── */}
-      <section id="research" className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-white/5 bg-white/[0.02]">
+      <section id="research" className="py-10 md:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="text-center mb-12 md:mb-16">
           <span className="inline-block text-xs font-bold tracking-[0.15em] uppercase text-accent-cyan mb-3">What We Study</span>
           <h2 className="text-3xl md:text-4xl mb-4">Research Focus Areas</h2>
@@ -138,7 +129,12 @@ const Home = () => {
                   {area.icon}
                 </div>
                 <h4 className="text-xl font-semibold mb-3 group-hover:text-accent-cyan transition-colors">{area.title}</h4>
-                <p className="text-slate-400 text-sm leading-relaxed m-0">{area.desc}</p>
+                {area.data && (
+                  <div className="text-base text-accent-blue-light/80 font-mono mb-3 bg-accent-blue/10 px-2 py-1 rounded border border-accent-blue/20">
+                    <span className="text-slate-400">Data:</span> {area.data}
+                  </div>
+                )}
+                <p className="text-slate-400 text-base leading-relaxed m-0">{area.desc}</p>
               </div>
             </Tilt>
           ))}
@@ -146,7 +142,7 @@ const Home = () => {
       </section>
 
       {/* ── Quick Nav Cards ── */}
-      <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <section className="pt-10 md:pt-16 pb-6 md:pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
           {[
             { icon: <BookOpen size={24} />, label: 'Publications', path: '/publications', desc: 'Peer-reviewed research & preprints' },
@@ -159,7 +155,7 @@ const Home = () => {
                   {item.icon}
                 </div>
                 <h4 className="text-lg font-semibold mb-2 group-hover:text-accent-cyan transition-colors">{item.label}</h4>
-                <p className="text-slate-400 text-xs m-0">{item.desc}</p>
+                <p className="text-slate-400 text-sm m-0">{item.desc}</p>
                 <div className="absolute bottom-6 right-6 text-slate-500 group-hover:text-accent-cyan group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300">
                   <ArrowRight size={20} />
                 </div>

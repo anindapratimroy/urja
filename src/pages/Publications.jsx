@@ -15,15 +15,15 @@ const Publications = () => {
 
   return (
     <div className="w-full">
-      <div className="py-20 md:py-28 bg-gradient-to-b from-blue-500/5 to-transparent border-b border-white/5 mb-12 md:mb-16 text-center md:text-left px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <span className="inline-block text-xs font-bold tracking-[0.12em] uppercase text-accent-cyan mb-3">Research Output</span>
+      <div className="pt-16 md:pt-24 pb-6 md:pb-8 mb-6 md:mb-8 text-center md:text-left px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <span className="inline-block text-sm font-bold tracking-[0.12em] uppercase text-accent-cyan mb-3">Research Output</span>
         <h1 className="text-4xl md:text-5xl lg:text-6xl mb-4"><span className="text-gradient">Publications</span></h1>
-        <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto md:mx-0 m-0">
+        <p className="text-xl md:text-2xl text-slate-400 max-w-2xl mx-auto md:mx-0 m-0">
           Peer-reviewed research articles, conference proceedings, and preprints from URJA Lab.
         </p>
       </div>
 
-      <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-20">
+      <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-8 md:pb-12">
         {publications.length > 0 ? (
           <div className="flex flex-col gap-6 md:gap-8">
             {publications.map((pub, index) => (
@@ -40,17 +40,17 @@ const Publications = () => {
                         {pub.authors}
                       </span>
                     )}
-                    {pub.year && (
+                    {(pub.year || pub.publishedDate) && (
                       <span className="flex items-center gap-2 text-sm text-slate-400">
                         <Calendar size={16} className="text-accent-blue-light/70" />
-                        {pub.year}
+                        {pub.year || pub.publishedDate}
                       </span>
                     )}
                   </div>
-                  {pub.journal && (
+                  {(pub.journal || pub.journalInfo) && (
                     <div className="flex items-center gap-2 text-sm font-semibold mb-4">
                       <FileText size={16} className="text-accent-blue-light" />
-                      <span className="text-gradient">{pub.journal}</span>
+                      <span className="text-gradient">{pub.journal || pub.journalInfo}</span>
                     </div>
                   )}
                   {pub.abstract && (

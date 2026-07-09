@@ -30,21 +30,21 @@ const Collaborations = () => {
 
   return (
     <div className="w-full">
-      <div className="relative py-24 md:py-32 bg-[radial-gradient(circle_at_80%_20%,rgba(59,130,246,0.1)_0%,transparent_50%)] border-b border-white/5 mb-8 md:mb-12 text-center md:text-left px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
+      <div className="relative pt-20 md:pt-28 pb-8 md:pb-10 mb-6 md:mb-8 text-center md:text-left px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
         <div className="absolute -right-[5%] -top-[20%] text-blue-500/[0.03] pointer-events-none">
           <Globe size={400} strokeWidth={0.5} className="animate-[spin_60s_linear_infinite]" />
         </div>
         <div className="relative z-10">
-          <span className="inline-block text-xs font-bold tracking-[0.15em] uppercase text-accent-cyan mb-4">Global Network</span>
+          <span className="inline-block text-sm font-bold tracking-[0.15em] uppercase text-accent-cyan mb-4">Global Network</span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl mb-4">Research <span className="text-gradient">Collaborations</span></h1>
-          <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto md:mx-0 m-0 leading-relaxed">
+          <p className="text-xl md:text-2xl text-slate-400 max-w-2xl mx-auto md:mx-0 m-0 leading-relaxed">
             URJA Lab maintains active collaborations with leading research institutes,
             observatories, and universities around the world.
           </p>
         </div>
       </div>
 
-      <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-24">
+      <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-8 md:pb-12">
         {collaborations.length > 0 ? (
           <div className="flex flex-col gap-12 md:gap-16">
             {sortedCountries.map(country => (
@@ -67,21 +67,21 @@ const Collaborations = () => {
                         </div>
                       </div>
                       
-                      <div className="flex-1 min-w-0">
-                        <h4 className="text-base sm:text-lg md:text-xl font-semibold mb-1 text-white truncate">{collab.name || 'Collaborator'}</h4>
-                        {collab.type && <p className="text-xs sm:text-sm md:text-base font-medium text-accent-cyan mb-2 sm:mb-3">{collab.type}</p>}
+                      <div className="flex-1 min-w-0 w-full break-words">
+                        <h4 className="text-lg sm:text-xl md:text-2xl font-semibold mb-1 text-white break-words">{collab.name || 'Collaborator'}</h4>
+                        {collab.type && <p className="text-sm sm:text-base md:text-lg font-medium text-accent-cyan mb-2 sm:mb-3 break-words">{collab.type}</p>}
                         
                         {collab.affiliation && (
-                          <div className="flex items-start gap-2 text-sm text-slate-400 mb-2 leading-relaxed">
+                          <div className="flex items-start gap-2 text-base text-slate-400 mb-2 leading-relaxed w-full">
                             <Building2 size={16} className="shrink-0 mt-0.5 text-slate-500" /> 
-                            <span>{collab.affiliation}</span>
+                            <span className="flex-1 min-w-0 break-words">{collab.affiliation}</span>
                           </div>
                         )}
                         
                         {collab.area && (
                           <div className="mt-4 pt-3 border-t border-dashed border-white/10">
-                            <span className="block text-[10px] sm:text-xs uppercase text-slate-500 tracking-widest mb-1.5">Research Area</span>
-                            <p className="text-xs sm:text-sm md:text-base text-slate-400 m-0 leading-relaxed line-clamp-2 sm:line-clamp-none">{collab.area}</p>
+                            <span className="block text-xs sm:text-sm uppercase text-slate-500 tracking-widest mb-1.5 break-words">Research Area</span>
+                            <p className="text-sm sm:text-base md:text-lg text-slate-400 m-0 leading-relaxed line-clamp-2 sm:line-clamp-none break-words">{collab.area}</p>
                           </div>
                         )}
                       </div>

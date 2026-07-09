@@ -91,13 +91,13 @@ const ParticleBackground = () => {
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
 
-    const STAR_COUNT = 260;
-    const NEBULA_COUNT = 5;
+    const STAR_COUNT = 120;
+    const NEBULA_COUNT = 3;
     const ATTRACT_RADIUS = 300;
     const ATTRACT_STRENGTH = 0.15;
     const MOUSE_GLOW_RADIUS = 300;
     const LINE_DISTANCE = 100;
-    const LINE_OPACITY = 0.055;
+    const LINE_OPACITY = 0.035;
     const FRICTION = 0.96;
 
     const resize = () => {
