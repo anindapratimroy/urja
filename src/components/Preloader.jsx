@@ -31,40 +31,20 @@ const generateStars = (count) => {
 const STARS = generateStars(65);
 
 const Preloader = ({ onComplete }) => {
-  const [progress, setProgress] = useState(0);
   const [fadeOut, setFadeOut] = useState(false);
-  const rafRef = useRef(null);
-  const startRef = useRef(null);
 
-  const FILL_DURATION = 1500;   // ms — progress bar fill
-  const FADE_DURATION = 600;    // ms — fade-out transition
+  const SPLASH_DURATION = 1500;   // ms — how long the splash stays visible
+  const FADE_DURATION = 600;      // ms — fade-out transition
 
   useEffect(() => {
-    const step = (timestamp) => {
-      if (!startRef.current) startRef.current = timestamp;
-      const elapsed = timestamp - startRef.current;
-      const pct = Math.min(elapsed / FILL_DURATION, 1);
+    const timer = setTimeout(() => {
+      setFadeOut(true);
+      setTimeout(() => {
+        onComplete && onComplete();
+      }, FADE_DURATION);
+    }, SPLASH_DURATION);
 
-      // ease-out cubic for a satisfying deceleration
-      const eased = 1 - Math.pow(1 - pct, 3);
-      setProgress(Math.round(eased * 100));
-
-      if (pct < 1) {
-        rafRef.current = requestAnimationFrame(step);
-      } else {
-        // progress complete → start fade-out
-        setFadeOut(true);
-        setTimeout(() => {
-          onComplete && onComplete();
-        }, FADE_DURATION);
-      }
-    };
-
-    rafRef.current = requestAnimationFrame(step);
-
-    return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
+    return () => clearTimeout(timer);
   }, [onComplete]);
 
   /* ─── Removed old SVG Logo component ─────────── */
@@ -170,42 +150,6 @@ const Preloader = ({ onComplete }) => {
           Indian Institute of Technology Indore
         </p>
 
-        {/* ── Progress bar ─────────────────────────── */}
-        <div
-          style={{
-            width: 'clamp(180px, 40vw, 280px)',
-            height: '3px',
-            borderRadius: '100px',
-            background: 'rgba(255,255,255,0.06)',
-            overflow: 'hidden',
-            marginTop: '0.75rem',
-          }}
-        >
-          <div
-            style={{
-              height: '100%',
-              width: `${progress}%`,
-              borderRadius: '100px',
-              background: 'linear-gradient(90deg, #3B82F6, #60A5FA, #A78BFA)',
-              transition: 'width 60ms linear',
-              boxShadow: '0 0 12px rgba(96,165,250,0.45)',
-            }}
-          />
-        </div>
-
-        {/* Percentage counter */}
-        <span
-          style={{
-            fontFamily: "'Space Grotesk', system-ui, sans-serif",
-            fontSize: '0.75rem',
-            fontWeight: 500,
-            color: '#475569',
-            fontVariantNumeric: 'tabular-nums',
-            letterSpacing: '0.08em',
-          }}
-        >
-          {progress}%
-        </span>
       </div>
 
       {/* ── Scoped keyframes ────────────────────────── */}

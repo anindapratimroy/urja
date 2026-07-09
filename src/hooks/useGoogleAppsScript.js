@@ -1,8 +1,16 @@
 import { useState, useEffect } from 'react';
 
 const API_URL = import.meta.env.VITE_API_URL;
+const CACHE_KEY = 'urja_data_cache';
 
 let globalData = null;
+try {
+  const cached = localStorage.getItem(CACHE_KEY);
+  if (cached) globalData = JSON.parse(cached);
+} catch (e) {
+  // Ignore localStorage errors
+}
+
 let globalError = null;
 let fetchPromise = null;
 
@@ -15,6 +23,9 @@ export const prefetchData = () => {
       })
       .then(json => {
         globalData = json;
+        try {
+          localStorage.setItem(CACHE_KEY, JSON.stringify(json));
+        } catch (e) {}
         return json;
       })
       .catch(err => {
@@ -25,7 +36,7 @@ export const prefetchData = () => {
   return fetchPromise;
 };
 
-// Start fetching immediately as soon as this file is loaded (while preloader runs)
+// Start fetching immediately as soon as this file is loaded
 prefetchData().catch(() => {});
 
 export const useGoogleAppsScript = () => {
@@ -35,18 +46,16 @@ export const useGoogleAppsScript = () => {
     opportunities: [],
     collaborations: []
   });
+  
+  // If we have cached data, we are technically not "loading" from a user perspective,
+  // but we still fetch silently in the background.
   const [loading, setLoading] = useState(!globalData && !globalError);
   const [error, setError] = useState(globalError);
 
   useEffect(() => {
-    // If data is already fetched by the time the component mounts, we are done.
-    if (globalData || globalError) {
-      setLoading(false);
-      return;
-    }
-
     let isMounted = true;
     
+    // Always attach to the fetch promise to update with fresh data (stale-while-revalidate)
     prefetchData()
       .then(json => {
         if (isMounted) {
@@ -55,7 +64,8 @@ export const useGoogleAppsScript = () => {
         }
       })
       .catch(err => {
-        if (isMounted) {
+        if (isMounted && !globalData) {
+          // Only show error if we don't even have cached data
           setError(globalError);
           setLoading(false);
         }
