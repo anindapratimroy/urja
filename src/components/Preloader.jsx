@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import urjaLogo from '../assets/logo/urja_logo_processed.png';
 import iitiLogo from '../assets/logo/iiti_logo.png';
+import { useGoogleAppsScript } from '../hooks/useGoogleAppsScript';
 
 /* ═══════════════════════════════════════════════════════════
    Preloader — shown ONCE per browser session (first load /
@@ -35,37 +36,65 @@ const Preloader = ({ onComplete }) => {
   const [fadeOut, setFadeOut] = useState(false);
   const rafRef = useRef(null);
   const startRef = useRef(null);
+  const progressRef = useRef(0);
+  const { loading: isDataLoading } = useGoogleAppsScript();
 
-  const FILL_DURATION = 2500;   // ms — progress bar fill
+  const MIN_DURATION = 2500;   // ms — minimum preloader time
   const FADE_DURATION = 600;    // ms — fade-out transition
 
   useEffect(() => {
     const step = (timestamp) => {
       if (!startRef.current) startRef.current = timestamp;
       const elapsed = timestamp - startRef.current;
-      const pct = Math.min(elapsed / FILL_DURATION, 1);
-
-      // ease-out cubic for a satisfying deceleration
-      const eased = 1 - Math.pow(1 - pct, 3);
-      setProgress(Math.round(eased * 100));
-
-      if (pct < 1) {
-        rafRef.current = requestAnimationFrame(step);
+      
+      let targetProgress = 0;
+      
+      if (elapsed < MIN_DURATION) {
+        // Progress smoothly to 85% over the minimum duration
+        const pct = elapsed / MIN_DURATION;
+        const eased = 1 - Math.pow(1 - pct, 3);
+        targetProgress = eased * 85;
       } else {
-        // progress complete → start fade-out
+        if (!isDataLoading) {
+           targetProgress = 100;
+        } else {
+           // Data is still loading, slowly creep up from 85% to 95% maximum
+           targetProgress = 85 + Math.min((elapsed - MIN_DURATION) / 300, 10);
+        }
+      }
+
+      // Smoothly approach the target progress
+      const diff = targetProgress - progressRef.current;
+      const stepValue = diff > 0.1 ? diff * 0.15 : diff;
+      let nextProgress = progressRef.current + stepValue;
+      
+      if (targetProgress === 100 && nextProgress > 99.2) {
+          nextProgress = 100;
+      }
+      
+      progressRef.current = nextProgress;
+      setProgress(Math.round(nextProgress));
+
+      if (nextProgress >= 100) {
         setFadeOut(true);
         setTimeout(() => {
           onComplete && onComplete();
         }, FADE_DURATION);
+      } else {
+        rafRef.current = requestAnimationFrame(step);
       }
     };
 
-    rafRef.current = requestAnimationFrame(step);
+    // Restart RAF to capture the updated `isDataLoading` value from closure
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    if (!fadeOut) {
+       rafRef.current = requestAnimationFrame(step);
+    }
 
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, [onComplete]);
+  }, [isDataLoading, onComplete, fadeOut]);
 
   /* ─── Removed old SVG Logo component ─────────── */
 

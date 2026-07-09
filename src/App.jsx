@@ -21,12 +21,10 @@ function App() {
     setShowPreloader(false);
   };
 
-  if (showPreloader) {
-    return <Preloader onComplete={handlePreloaderComplete} />;
-  }
-
   return (
-    <Router>
+    <>
+      {showPreloader && <Preloader onComplete={handlePreloaderComplete} />}
+      <Router>
       <ScrollToTop />
       <Layout>
         <Routes>
@@ -39,7 +37,8 @@ function App() {
           <Route path="/pi" element={<PI />} />
         </Routes>
       </Layout>
-    </Router>
+      </Router>
+    </>
   );
 }
 
