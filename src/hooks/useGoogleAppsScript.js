@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL || 'https://script.google.com/macros/s/AKfycbzjkzuwdnXyGBLa9QZox4x2lwN6Vgx6Oh1rYv0Ogqfwn1F_8HO-pGv-HPh_BLil5uyb4Q/exec';
 const CACHE_KEY = 'urja_data_cache';
 
 let globalData = null;
