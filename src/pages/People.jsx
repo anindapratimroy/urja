@@ -8,9 +8,16 @@ import imgChandan from '../assets/people/chandan_kumar.jpg';
 import imgShraddha from '../assets/people/shraddha.jpg';
 
 const People = () => {
-  const { data, error } = useGoogleAppsScript();
+  const { data, loading, error } = useGoogleAppsScript();
   const [selectedImage, setSelectedImage] = useState(null);
   const [activeFilter, setActiveFilter] = useState('all');
+
+  if (loading) return (
+    <div className="min-h-[60vh] flex flex-col items-center justify-center gap-4 text-slate-400">
+      <Loader2 className="w-8 h-8 animate-spin text-accent-blue" />
+      <p>Loading members...</p>
+    </div>
+  );
 
   if (error) return (
     <div className="min-h-[60vh] flex flex-col items-center justify-center gap-4 text-slate-500">

@@ -3,8 +3,14 @@ import { useGoogleAppsScript } from '../hooks/useGoogleAppsScript';
 import { Loader2, ExternalLink, FileText, Calendar, Users as AuthorsIcon } from 'lucide-react';
 
 const Publications = () => {
-  const { data, error } = useGoogleAppsScript();
+  const { data, loading, error } = useGoogleAppsScript();
 
+  if (loading) return (
+    <div className="min-h-[60vh] flex flex-col items-center justify-center gap-4 text-slate-400">
+      <Loader2 className="w-8 h-8 animate-spin text-accent-blue" />
+      <p>Loading publications...</p>
+    </div>
+  );
   if (error) return (
     <div className="min-h-[60vh] flex flex-col items-center justify-center gap-4 text-slate-500">
       <p>Unable to load data. Please check back later.</p>

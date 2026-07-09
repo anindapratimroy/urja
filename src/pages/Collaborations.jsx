@@ -1,10 +1,16 @@
 import React from 'react';
 import { useGoogleAppsScript } from '../hooks/useGoogleAppsScript';
-import { Globe, ExternalLink, Building2, User, MapPin, Network } from 'lucide-react';
+import { Globe, ExternalLink, Building2, User, MapPin, Network, Loader2 } from 'lucide-react';
 
 const Collaborations = () => {
-  const { data, error } = useGoogleAppsScript();
+  const { data, loading, error } = useGoogleAppsScript();
 
+  if (loading) return (
+    <div className="min-h-[60vh] flex flex-col items-center justify-center gap-4 text-slate-400">
+      <Loader2 className="w-8 h-8 animate-spin text-accent-blue" />
+      <p>Loading collaborations...</p>
+    </div>
+  );
   if (error) return (
     <div className="min-h-[60vh] flex flex-col items-center justify-center gap-4 text-slate-500">
       <p>Unable to load data. Please check back later.</p>
