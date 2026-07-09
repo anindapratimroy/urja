@@ -104,8 +104,8 @@ const Home = () => {
           </div>
           
           <div className="flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto">
-            <Link to="/pi" className="btn justify-center">View Profile</Link>
-            <Link to="/collaborations" className="btn btn-outline justify-center">View Collaborations</Link>
+            <Link to="/pi" className="btn justify-center px-8 py-3 text-lg md:text-xl md:px-10 md:py-3.5">View Profile</Link>
+            <Link to="/collaborations" className="btn btn-outline justify-center px-8 py-3 text-lg md:text-xl md:px-10 md:py-3.5">View Collaborations</Link>
           </div>
         </div>
       </section>
