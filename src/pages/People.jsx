@@ -3,6 +3,10 @@ import { createPortal } from 'react-dom';
 import { useGoogleAppsScript } from '../hooks/useGoogleAppsScript';
 import { User, Loader2, Mail, ExternalLink, X, ChevronDown } from 'lucide-react';
 
+import imgAyush from '../assets/people/ayush_garg.jpeg';
+import imgChandan from '../assets/people/chandan_kumar.jpg';
+import imgShraddha from '../assets/people/shraddha.jpg';
+
 const People = () => {
   const { data, loading, error } = useGoogleAppsScript();
   const [selectedImage, setSelectedImage] = useState(null);
@@ -33,6 +37,10 @@ const People = () => {
   const alumniMembers = peopleData.filter(m => isAlumni(m));
 
   const getPhoto = (member) => {
+    const name = (member.name || '').toLowerCase();
+    if (name.includes('ayush')) return imgAyush;
+    if (name.includes('chandan')) return imgChandan;
+    if (name.includes('shraddha')) return imgShraddha;
     return member.photo;
   };
 
