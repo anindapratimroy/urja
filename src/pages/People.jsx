@@ -3,10 +3,7 @@ import { createPortal } from 'react-dom';
 import { useSearchParams } from 'react-router-dom';
 import { useGoogleAppsScript } from '../hooks/useGoogleAppsScript';
 import { User, Loader2, Mail, ExternalLink, X, ChevronDown } from 'lucide-react';
-
-import imgAyush from '../assets/people/ayush_garg.jpeg';
-import imgChandan from '../assets/people/chandan_kumar.jpg';
-import imgShraddha from '../assets/people/shraddha.jpg';
+import { getDirectImageUrl } from '../utils/helpers';
 
 const People = () => {
   const { data, loading, error } = useGoogleAppsScript();
@@ -14,12 +11,30 @@ const People = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const activeFilter = searchParams.get('role') || 'all';
 
-  if (loading) return (
-    <div className="min-h-[60vh] flex flex-col items-center justify-center gap-4 text-slate-400">
-      <Loader2 className="w-8 h-8 animate-spin text-accent-blue" />
-      <p>Loading members...</p>
-    </div>
-  );
+  if (loading) {
+    return (
+      <div className="w-full pb-12">
+        <div className="pt-16 md:pt-24 pb-6 md:pb-8 mb-6 md:mb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+          <div className="w-24 h-4 bg-white/10 rounded animate-pulse mb-4"></div>
+          <div className="w-64 h-12 bg-white/10 rounded animate-pulse mb-4"></div>
+          <div className="w-96 h-6 bg-white/10 rounded animate-pulse"></div>
+        </div>
+        <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 md:gap-8">
+            {[1, 2, 3, 4, 5, 6].map(i => (
+              <div key={i} className="glass-card p-4 md:p-8 flex flex-col items-center">
+                <div className="w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36 rounded-2xl bg-white/5 animate-pulse mb-3 md:mb-5"></div>
+                <div className="w-3/4 h-6 bg-white/5 animate-pulse rounded mb-2"></div>
+                <div className="w-1/2 h-4 bg-white/5 animate-pulse rounded mb-4"></div>
+                <div className="w-full h-12 bg-white/5 animate-pulse rounded mb-4"></div>
+                <div className="w-48 h-8 bg-white/5 animate-pulse rounded"></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (error) return (
     <div className="min-h-[60vh] flex flex-col items-center justify-center gap-4 text-slate-500">
@@ -39,11 +54,7 @@ const People = () => {
   const alumniMembers = peopleData.filter(m => isAlumni(m));
 
   const getPhoto = (member) => {
-    const name = (member.name || '').toLowerCase();
-    if (name.includes('ayush')) return imgAyush;
-    if (name.includes('chandan')) return imgChandan;
-    if (name.includes('shraddha')) return imgShraddha;
-    return member.photo;
+    return getDirectImageUrl(member.photo);
   };
 
   const getRolePriority = (role) => {

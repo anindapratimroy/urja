@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const API_URL = 'https://script.google.com/macros/s/AKfycbzjkzuwdnXyGBLa9QZox4x2lwN6Vgx6Oh1rYv0Ogqfwn1F_8HO-pGv-HPh_BLil5uyb4Q/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbwBFh2Od6fkivZB_fzL1dPN5JbrvOBubqt4kBFoyqfVAWor4LXpMDcp-ZYRvlCGq8QOqQ/exec';
 const CACHE_KEY = 'urja_data_cache';
 
 let globalData = null;
@@ -45,7 +45,8 @@ export const useGoogleAppsScript = () => {
     people: { active: [], alumni: [] },
     publications: [],
     opportunities: [],
-    collaborations: []
+    collaborations: [],
+    gallery: []
   });
   
   // If we have cached data, we are technically not "loading" from a user perspective,
