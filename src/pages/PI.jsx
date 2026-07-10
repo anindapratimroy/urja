@@ -1,8 +1,9 @@
 import React from 'react';
 import Tilt from 'react-parallax-tilt';
+import { useGoogleAppsScript } from '../hooks/useGoogleAppsScript';
 import {
   GraduationCap, Telescope, BookOpen, MapPin, ExternalLink,
-  Globe, Star, Briefcase, FileText, MonitorPlay, Users, CheckCircle2, Bookmark
+  Globe, Star, Briefcase, FileText, MonitorPlay, Users, CheckCircle2, Bookmark, Loader2
 } from 'lucide-react';
 
 const researchInterests = [
@@ -26,11 +27,6 @@ const education = [
   { degree: 'B.Sc.', institute: 'P. P. N. College, C. S. J. M. University, Kanpur' },
 ];
 
-const highlights = [
-  { title: 'Detection of the observational signature of Poynting flux dominated jet', details: 'Nature Communications, Volume 11, article id. 4176 (2020)', authors: 'Shukla and Mannheim' },
-  { title: 'Detection of minute-scale γ-ray variability in CTA 102', details: 'The Astrophysical Journal Letters, Vol. 854, L26 (2018)', authors: '' },
-  { title: 'Detection of hardest γ-ray spectrum above 10 GeV in Mrk 501', details: 'The Astrophysical Journal, Vol. 832, 177 (2016)', authors: '' },
-];
 
 const media = [
   { source: 'PhysicsWorld', desc: 'Magnetic reconnection drives mini-jets in blazar | Spinning black hole powers jet by magnetic flux', link: 'https://www.eurekalert.org/pub_releases/2020-08/uow-sbh082120.php' },
@@ -49,6 +45,23 @@ const courses = [
 ];
 
 const PI = () => {
+  const { data, loading, error } = useGoogleAppsScript();
+
+  if (loading) return (
+    <div className="min-h-[60vh] flex flex-col items-center justify-center gap-4 text-slate-400">
+      <Loader2 className="w-8 h-8 animate-spin text-accent-blue" />
+      <p>Loading PI Profile...</p>
+    </div>
+  );
+
+  const activeMembers = (data.people || []).filter(member => {
+    if (member.affiliation && member.affiliation.trim() !== '') return false;
+    if (member.gradYear && parseInt(member.gradYear) < new Date().getFullYear()) return false;
+    return true;
+  });
+
+  const highlights = data.publications || [];
+
   return (
     <div className="w-full">
       {/* ──── Page Hero ──── */}
@@ -145,17 +158,21 @@ const PI = () => {
             <Star size={28} className="text-accent-cyan" /> Research Highlights
           </h3>
           <div className="glass-card p-8 md:p-10">
-            <ul className="space-y-6 md:space-y-8">
-              {highlights.map((h, i) => (
-                <li key={i} className="flex items-start gap-4">
-                  <CheckCircle2 size={24} className="text-accent-cyan shrink-0 mt-1" />
-                  <div>
-                    <strong className="text-lg md:text-xl text-slate-200 block mb-2">{h.title}</strong>
-                    <span className="text-sm md:text-base text-slate-400 block">{h.details} {h.authors && `— ${h.authors}`}</span>
-                  </div>
-                </li>
-              ))}
-            </ul>
+            {highlights.length > 0 ? (
+              <ul className="space-y-6 md:space-y-8">
+                {highlights.map((h, i) => (
+                  <li key={i} className="flex items-start gap-4">
+                    <CheckCircle2 size={24} className="text-accent-cyan shrink-0 mt-1" />
+                    <div>
+                      <strong className="text-lg md:text-xl text-slate-200 block mb-2">{h.title}</strong>
+                      <span className="text-sm md:text-base text-slate-400 block">{h.journalInfo || h.journal} {h.authors && `— ${h.authors}`}</span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-slate-400 m-0">Highlights will be updated soon from the lab database.</p>
+            )}
           </div>
         </section>
 
@@ -256,13 +273,17 @@ const PI = () => {
               </p>
               
               <h4 className="text-lg md:text-xl font-bold text-white mb-4">Current Group Members</h4>
-              <ul className="space-y-4">
-                {['Ms. Sushmita Agarwal (PhD)', 'Mr. Anurag Arya (M.Sc)', 'Mr. Chandan K Das (M.Sc)', 'Mr. Jincen Jose (M.Sc)', 'Mr. Jishnu Vijayan (M.Sc)'].map((member, idx) => (
-                  <li key={idx} className="flex items-center gap-3 text-sm md:text-base text-slate-300">
-                    <Users size={18} className="text-accent-blue shrink-0" /> {member}
-                  </li>
-                ))}
-              </ul>
+              {activeMembers.length > 0 ? (
+                <ul className="space-y-4">
+                  {activeMembers.map((member, idx) => (
+                    <li key={idx} className="flex items-center gap-3 text-sm md:text-base text-slate-300">
+                      <Users size={18} className="text-accent-blue shrink-0" /> {member.name} {member.role ? `(${member.role})` : ''}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-slate-400 m-0">Group members will be updated soon.</p>
+              )}
             </div>
           </section>
         </div>
