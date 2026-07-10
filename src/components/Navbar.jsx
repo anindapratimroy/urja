@@ -10,7 +10,19 @@ const Navbar = () => {
   
   const navLinks = [
     { name: 'Home', path: '/', icon: <Rocket size={20} /> },
-    { name: 'People', path: '/people', icon: <Users size={20} /> },
+    { 
+      name: 'People', 
+      path: '/people', 
+      icon: <Users size={20} />,
+      subLinks: [
+        { name: 'All Roles', path: '/people?role=all' },
+        { name: 'PhD', path: '/people?role=phd' },
+        { name: 'PG', path: '/people?role=pg' },
+        { name: 'UG', path: '/people?role=ug' },
+        { name: 'JRF', path: '/people?role=jrf' },
+        { name: 'SRF', path: '/people?role=srf' }
+      ]
+    },
     { name: 'Publications', path: '/publications', icon: <BookOpen size={20} /> },
     { name: 'Opportunities', path: '/opportunities', icon: <Briefcase size={20} /> },
     { name: 'Collaborations', path: '/collaborations', icon: <LinkIcon size={20} /> },
@@ -51,7 +63,7 @@ const Navbar = () => {
         {/* Desktop Links */}
         <ul className="hidden lg:flex items-center gap-2">
           {navLinks.map((link) => (
-            <li key={link.path}>
+            <li key={link.name} className="relative group">
               <Link 
                 to={link.path} 
                 className={`flex items-center gap-2 px-4 py-2.5 rounded-full text-base font-semibold transition-all ${
@@ -63,15 +75,30 @@ const Navbar = () => {
                 {link.icon}
                 <span>{link.name}</span>
               </Link>
+              {link.subLinks && (
+                <div className="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50">
+                  <div className="bg-navy/95 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl py-2 min-w-[160px]">
+                    {link.subLinks.map((sub) => (
+                      <Link
+                        key={sub.name}
+                        to={sub.path}
+                        className="block px-4 py-2 text-sm font-medium text-slate-300 hover:text-white hover:bg-accent-blue/20 hover:text-accent-blue-light transition-colors"
+                      >
+                        {sub.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
             </li>
           ))}
         </ul>
 
         {/* Mobile Links */}
-        <div className={`absolute top-[80px] left-0 w-full bg-navy/98 backdrop-blur-xl border-b border-white/10 lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-[calc(100vh-80px)] py-4' : 'max-h-0 py-0 border-b-0'}`}>
+        <div className={`absolute top-[80px] left-0 w-full bg-navy/98 backdrop-blur-xl border-b border-white/10 lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-[calc(100vh-80px)] py-4 overflow-y-auto' : 'max-h-0 py-0 border-b-0'}`}>
           <ul className="flex flex-col px-4 space-y-1 pb-6">
             {navLinks.map((link) => (
-              <li key={link.path}>
+              <li key={link.name}>
                 <Link 
                   to={link.path} 
                   className={`flex items-center gap-4 px-4 py-4 rounded-lg text-lg font-medium transition-colors ${
@@ -84,6 +111,21 @@ const Navbar = () => {
                   {React.cloneElement(link.icon, { size: 22 })}
                   <span>{link.name}</span>
                 </Link>
+                {link.subLinks && (
+                  <ul className="flex flex-col pl-12 mt-1 space-y-1 border-l-2 border-white/10 ml-6">
+                    {link.subLinks.map((sub) => (
+                      <li key={sub.name}>
+                        <Link
+                          to={sub.path}
+                          className="block px-4 py-3 text-base text-slate-400 hover:text-accent-blue-light hover:bg-white/5 rounded-lg transition-colors"
+                          onClick={closeMenu}
+                        >
+                          {sub.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </li>
             ))}
           </ul>

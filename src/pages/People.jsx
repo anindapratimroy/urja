@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useSearchParams } from 'react-router-dom';
 import { useGoogleAppsScript } from '../hooks/useGoogleAppsScript';
 import { User, Loader2, Mail, ExternalLink, X, ChevronDown } from 'lucide-react';
 
@@ -10,7 +11,8 @@ import imgShraddha from '../assets/people/shraddha.jpg';
 const People = () => {
   const { data, loading, error } = useGoogleAppsScript();
   const [selectedImage, setSelectedImage] = useState(null);
-  const [activeFilter, setActiveFilter] = useState('all');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const activeFilter = searchParams.get('role') || 'all';
 
   if (loading) return (
     <div className="min-h-[60vh] flex flex-col items-center justify-center gap-4 text-slate-400">
@@ -112,14 +114,11 @@ const People = () => {
 
   const filteredMembers = sortedMembers.filter(m => {
     if (activeFilter === 'all') return true;
-
-    const isAlum = isAlumni(m);
-    if (activeFilter === 'alumni') return isAlum;
-    
-    if (isAlum) return false;
-    
     return getRoleCategory(m.role) === activeFilter;
   });
+
+  const displayActive = filteredMembers.filter(m => !isAlumni(m));
+  const displayAlumni = filteredMembers.filter(m => isAlumni(m));
 
   const categories = [
     { value: 'all', label: 'All Roles' },
@@ -127,8 +126,7 @@ const People = () => {
     { value: 'pg', label: 'PG' },
     { value: 'ug', label: 'UG' },
     { value: 'jrf', label: 'JRF' },
-    { value: 'srf', label: 'SRF' },
-    { value: 'alumni', label: 'Alumni' }
+    { value: 'srf', label: 'SRF' }
   ];
 
   const MemberCard = ({ member }) => (
@@ -222,36 +220,39 @@ const People = () => {
       <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-8 md:pb-12">
         <section className="mb-20">
           <div className="flex flex-col md:flex-row items-center gap-4 mb-8 pb-4 border-b border-white/10">
-            <h2 className="text-2xl md:text-3xl m-0">{activeFilter === 'alumni' ? 'Alumni' : 'Members'}</h2>
+            <h2 className="text-2xl md:text-3xl m-0">{categories.find(c => c.value === activeFilter)?.label || 'Members'}</h2>
             <div className="bg-accent-blue/15 text-accent-cyan border border-accent-blue/30 rounded-full px-3 py-1 text-sm font-bold font-space">
               {filteredMembers.length}
             </div>
-            <div className="flex-grow flex justify-center md:justify-end mt-2 md:mt-0">
-              <div className="relative group">
-                <select 
-                  value={activeFilter}
-                  onChange={(e) => setActiveFilter(e.target.value)}
-                  className="appearance-none bg-white/[0.03] border border-white/10 group-hover:border-accent-blue/50 group-hover:bg-white/[0.05] text-white px-5 py-2.5 pr-10 rounded-xl outline-none focus:border-accent-blue focus:ring-2 focus:ring-accent-blue/20 transition-all cursor-pointer font-space font-medium text-sm shadow-[0_4px_15px_rgba(0,0,0,0.2)]"
-                >
-                  {categories.map(c => (
-                    <option key={c.value} value={c.value} className="bg-navy text-slate-200 py-1">{c.label}</option>
-                  ))}
-                </select>
-                <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 group-hover:text-accent-blue-light transition-colors">
-                  <ChevronDown size={16} />
-                </div>
-              </div>
-            </div>
+            <div className="flex-grow"></div>
             <span className="text-sm md:text-base font-medium text-slate-400 tracking-wide mt-2 md:mt-0 text-center md:text-left">
               * add @iiti.ac.in for the emails
             </span>
           </div>
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 md:gap-8">
-            {filteredMembers.length > 0
-              ? filteredMembers.map((m, i) => <MemberCard key={i} member={m} />)
-              : <EmptyState label={activeFilter === 'alumni' ? 'Alumni' : 'Members'} />
-            }
-          </div>
+
+          {/* Active Members Section */}
+          {displayActive.length > 0 && (
+            <div className="mb-12 md:mb-16">
+              <h3 className="text-xl md:text-2xl font-semibold mb-6 text-slate-200 border-l-4 border-accent-blue pl-4">Active Members</h3>
+              <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 md:gap-8">
+                {displayActive.map((m, i) => <MemberCard key={`active-${i}`} member={m} />)}
+              </div>
+            </div>
+          )}
+
+          {/* Alumni Section */}
+          {displayAlumni.length > 0 && (
+            <div>
+              <h3 className="text-xl md:text-2xl font-semibold mb-6 text-slate-200 border-l-4 border-accent-cyan pl-4">Alumni</h3>
+              <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 md:gap-8">
+                {displayAlumni.map((m, i) => <MemberCard key={`alumni-${i}`} member={m} />)}
+              </div>
+            </div>
+          )}
+
+          {displayActive.length === 0 && displayAlumni.length === 0 && (
+            <EmptyState label={categories.find(c => c.value === activeFilter)?.label || 'Members'} />
+          )}
         </section>
       </div>
 
